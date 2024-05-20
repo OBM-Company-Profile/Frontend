@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  }
+
   let activeClassName = "text-sc06";
   return (
     <header className="sticky top-0 sm:relative flex flex-wrap sm:justify-start sm:flex-col z-50 w-full bg-ne01 border-b border-gray-200 text-sm sm:py-0">
@@ -78,53 +85,65 @@ const Navbar = () => {
               </NavLink>
             </div>
             <div className="border-b border-pr00 py-5 hs-dropdown lg:border-none [--strategy:static] lg:[--strategy:fixed] [--adaptive:none]">
-              <button
-                type="button"
-                className="flex items-center w-full text-pr08 font-montserrat font-semibold uppercase hs-dropdown-open:border-b hs-dropdown-open:border-pr00 hs-dropdown-open:pb-4 lg:hs-dropdown-open:border-none hs-dropdown-open:border-pr00 lg:hs-dropdown-open:bg-ne01 lg:hs-dropdown-open:py-0 lg:hs-dropdown-open:text-pr08">
-                Layanan
-                <svg
-                  className="ms-1 flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
+      <button
+        type="button"
+        className={`flex items-center w-full text-pr08 font-montserrat font-semibold uppercase ${isOpen ? 'hs-dropdown-open:border-b hs-dropdown-open:border-pr00 hs-dropdown-open:pb-4' : ''} lg:hs-dropdown-open:border-none hs-dropdown-open:border-pr00 lg:hs-dropdown-open:bg-ne01 lg:hs-dropdown-open:py-0 lg:hs-dropdown-open:text-pr08`}
+        onClick={handleToggle}
+      >
+        Layanan
+        <svg
+          className="ms-1 flex-shrink-0 size-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
 
-              <div className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 lg:w-48 hidden z-10 lg:border-t lg:border-pr00 bg-ne01 text-pr08 lg:shadow-md rounded-none p-2 before:absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5">
-                <a
-                  className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-4 lg:pb-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-                  href="/layanan/shipping">
-                  Shipping
-                </a>
-                <a
-                  className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:py-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-                  href="/layanan/marine">
-                  Marine
-                </a>
-                <a
-                  className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pb-3 lg:pt-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-                  href="/layanan/port-service">
-                  Port Service
-                </a>
-                <a
-                  className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-                  href="/layanan/logistik">
-                  Logistics & Transportation
-                </a>
-                <a
-                  className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-6 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-                  href="/layanan/konsultan">
-                  Konsultan & Marine Correspondent
-                </a>
-              </div>
-            </div>
+      {isOpen && (
+        <div
+          className={`hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-[150ms] opacity-100 lg:w-48 z-10 lg:border-t lg:border-pr00 bg-ne01 text-pr08 lg:shadow-md rounded-none p-2 absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5`}
+        >
+          <a
+            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-4 lg:pb-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+            href="/layanan/shipping"
+          >
+            Shipping
+          </a>
+          <a
+            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:py-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+            href="/layanan/marine"
+          >
+            Marine
+          </a>
+          <a
+            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pb-3 lg:pt-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+            href="/layanan/port-service"
+          >
+            Port Service
+          </a>
+          <a
+            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+            href="/layanan/logistik"
+          >
+            Logistics & Transportation
+          </a>
+          <a
+            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-6 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+            href="/layanan/konsultan"
+          >
+            Konsultan & Marine Correspondent
+          </a>
+        </div>
+      )}
+    </div>
             <div className="border-b border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
               <NavLink
                 to="/quality"
