@@ -3,10 +3,15 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   }
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   let activeClassName = "text-sc06";
   return (
@@ -42,33 +47,144 @@ const Navbar = () => {
             <img className="w-16 lg:mx-4 py-3" src="../img/logo_obm.png" />
           </a>
           <div className="lg:hidden">
-            <button
-              type="button"
-              className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-              data-hs-collapse="#navbar-collapse-with-animation"
-              aria-controls="navbar-collapse-with-animation"
-              aria-label="Toggle navigation">
-              <svg
-                className="hs-collapse-open:hidden size-8"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16">
-                <path
-                  fill-rule="evenodd"
-                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                />
-              </svg>
-              <svg
-                className="hs-collapse-open:block flex-shrink-0 hidden size-8"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-              </svg>
-            </button>
+      <button
+        type="button"
+        onClick={handleToggle}
+        className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold text-pr08 disabled:opacity-50 disabled:pointer-events-none"
+        data-hs-collapse="#navbar-collapse-with-animation"
+        aria-controls="navbar-collapse-with-animation"
+        aria-label="Toggle navigation"
+      >
+        <svg
+          className="hs-collapse-open:hidden size-8"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+          />
+        </svg>
+        <svg
+          className="hs-collapse-open:block flex-shrink-0 hidden size-8"
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="relative h-svh w-svw">
+          <div className="bg-white flex flex-col">
+            <div className="border-y border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
+              <NavLink
+                to="/tentang"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+                end
+              >
+                Tentang
+              </NavLink>
+            </div>
+            <div className="border-b border-pr00 py-5 hs-dropdown lg:border-none [--strategy:static] lg:[--strategy:fixed] [--adaptive:none]">
+              <button
+                type="button"
+                className={`flex items-center w-full text-pr08 font-montserrat font-semibold uppercase ${isDropdownOpen ? 'hs-dropdown-open:border-b hs-dropdown-open:border-pr00 hs-dropdown-open:pb-4' : ''} lg:hs-dropdown-open:border-none hs-dropdown-open:border-pr00 lg:hs-dropdown-open:bg-ne01 lg:hs-dropdown-open:py-0 lg:hs-dropdown-open:text-pr08`}
+                onClick={handleDropdownToggle}
+              >
+                Layanan
+                <svg
+                  className="ms-1 flex-shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              {isDropdownOpen && (
+                <div className="bg-white h-52 w-52 flex flex-col">
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-4 lg:pb-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/shipping"
+                  >
+                    Shipping
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:py-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/marine"
+                  >
+                    Marine
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pb-3 lg:pt-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/port-service"
+                  >
+                    Port Service
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/logistik"
+                  >
+                    Logistics & Transportation
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-6 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/konsultan"
+                  >
+                    Konsultan & Marine Correspondent
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className="border-b border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
+              <NavLink
+                to="/quality"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+                end
+              >
+                Quality
+              </NavLink>
+            </div>
+            <div className="border-b border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
+              <NavLink
+                to="/portofolio"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+                end
+              >
+                Portofolio
+              </NavLink>
+            </div>
+            <div className="border-b border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
+              <NavLink
+                to="/fasilitas"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : undefined
+                }
+                end
+              >
+                Fasilitas
+              </NavLink>
+            </div>
           </div>
+        </div>
+      )}
+    </div>
         </div>
         <div
           id="navbar-collapse-with-animation"
@@ -85,65 +201,65 @@ const Navbar = () => {
               </NavLink>
             </div>
             <div className="border-b border-pr00 py-5 hs-dropdown lg:border-none [--strategy:static] lg:[--strategy:fixed] [--adaptive:none]">
-      <button
-        type="button"
-        className={`flex items-center w-full text-pr08 font-montserrat font-semibold uppercase ${isOpen ? 'hs-dropdown-open:border-b hs-dropdown-open:border-pr00 hs-dropdown-open:pb-4' : ''} lg:hs-dropdown-open:border-none hs-dropdown-open:border-pr00 lg:hs-dropdown-open:bg-ne01 lg:hs-dropdown-open:py-0 lg:hs-dropdown-open:text-pr08`}
-        onClick={handleToggle}
-      >
-        Layanan
-        <svg
-          className="ms-1 flex-shrink-0 size-4"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </button>
+              <button
+                type="button"
+                className={`flex items-center w-full text-pr08 font-montserrat font-semibold uppercase ${isOpen ? 'hs-dropdown-open:border-b hs-dropdown-open:border-pr00 hs-dropdown-open:pb-4' : ''} lg:hs-dropdown-open:border-none hs-dropdown-open:border-pr00 lg:hs-dropdown-open:bg-ne01 lg:hs-dropdown-open:py-0 lg:hs-dropdown-open:text-pr08`}
+                onClick={handleToggle}
+              >
+                Layanan
+                <svg
+                  className="ms-1 flex-shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
 
-      {isOpen && (
-        <div
-          className={`hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-[150ms] opacity-100 lg:w-48 z-10 lg:border-t lg:border-pr00 bg-ne01 text-pr08 lg:shadow-md rounded-none p-2 absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5`}
-        >
-          <a
-            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-4 lg:pb-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-            href="/layanan/shipping"
-          >
-            Shipping
-          </a>
-          <a
-            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:py-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-            href="/layanan/marine"
-          >
-            Marine
-          </a>
-          <a
-            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pb-3 lg:pt-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-            href="/layanan/port-service"
-          >
-            Port Service
-          </a>
-          <a
-            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-            href="/layanan/logistik"
-          >
-            Logistics & Transportation
-          </a>
-          <a
-            className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-6 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
-            href="/layanan/konsultan"
-          >
-            Konsultan & Marine Correspondent
-          </a>
-        </div>
-      )}
-    </div>
+              {isOpen && (
+                <div
+                  className={`hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-[150ms] opacity-100 lg:w-48 z-10 lg:border-t lg:border-pr00 bg-ne01 text-pr08 lg:shadow-md rounded-none p-2 absolute top-full sm:border before:-top-5 before:start-0 before:w-full before:h-5`}
+                >
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-4 lg:pb-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/shipping"
+                  >
+                    Shipping
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:py-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/marine"
+                  >
+                    Marine
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pb-3 lg:pt-0 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/port-service"
+                  >
+                    Port Service
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-3 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/logistik"
+                  >
+                    Logistics & Transportation
+                  </a>
+                  <a
+                    className="flex items-center gap-x-3.5 p-2 lg:px-2 lg:pt-0 lg:pb-6 text-pr03 lg:text-pr08 font-montserrat font-semibold hover:text-sc06"
+                    href="/layanan/konsultan"
+                  >
+                    Konsultan & Marine Correspondent
+                  </a>
+                </div>
+              )}
+            </div>
             <div className="border-b border-pr00 py-4 lg:border-none font-montserrat font-semibold text-pr08 lg:py-6 hover:text-sc06 uppercase">
               <NavLink
                 to="/quality"
