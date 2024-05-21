@@ -7,7 +7,7 @@ import Navs from "../../../component/Navs";
 
 export default () => {
   const links = [
-    { path: "/layanan/logistik/terminal-stevedoring", label: "Logistics & Transportation" },
+    { path: "/layanan/marine", label: "Logistics & Transportation" },
     {
       path: "/layanan/logistik/terminal-stevedoring",
       label: "Terminal Stevedoring",
