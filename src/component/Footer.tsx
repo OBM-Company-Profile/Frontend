@@ -6,7 +6,7 @@ function Footer() {
         <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
             <a href="/">
-              <img className="size-16" src="../img/logo_obm.png" alt="" />
+              <img className="size-16" src="/logo_obm.png" alt="" />
               <span className="mt-6 text-sm lg:text-base uppercase font-raleway font-bold">
                 PT. Orela Bahari Mandiri
               </span>
