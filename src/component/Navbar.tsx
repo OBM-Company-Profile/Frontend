@@ -44,7 +44,7 @@ const Navbar = () => {
         aria-label="Global">
         <div className="flex items-center justify-between">
           <a href="/">
-            <img className="w-16 lg:mx-4 py-3" src="../img/logo_obm.png" />
+            <img className="w-16 lg:mx-4 py-3" src="/logo_obm.png" />
           </a>
           <div className="lg:hidden">
       <button
