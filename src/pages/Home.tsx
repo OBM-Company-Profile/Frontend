@@ -4,8 +4,10 @@ import Jumbotron from "../component/Jumbotron";
 import Button from "../component/Button";
 import Content from "../component/Content";
 import Card from "../component/Card";
+import { useState } from "react";
 
 export default () => {
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <>
       <Navbar />
@@ -270,115 +272,108 @@ export default () => {
                 />
               </div>
             </div>
-            <div
-              id="hs-show-hide-collapse-heading"
-              className="hs-collapse hidden w-full overflow-hidden transition-[height] duration-300"
-              aria-labelledby="hs-show-hide-collapse">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4">
-                {/* Client logos here */}
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/hitachi.png"
-                    alt="hitachi"
-                    className="h-16"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/soechi.png"
-                    alt="soechi"
-                    className="h-12"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/gac.png"
-                    alt="gac"
-                    className="sm:mt-4 h-16"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/lintas_samudra.png"
-                    alt="lintas"
-                    className="h-12"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/pelindo.png"
-                    alt="pelindo"
-                    className="h-auto"
-                  />
-                </div>
+            {isVisible && (
+              <div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4">
+                  {/* Client logos here */}
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/hitachi.png"
+                      alt="hitachi"
+                      className="h-16"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/soechi.png"
+                      alt="soechi"
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/gac.png"
+                      alt="gac"
+                      className="sm:mt-4 h-16"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/lintas_samudra.png"
+                      alt="lintas"
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/pelindo.png"
+                      alt="pelindo"
+                      className="h-auto"
+                    />
+                  </div>
 
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/oceanindo.png"
-                    alt="oceanindo"
-                    className="h-12"
-                  />
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/oceanindo.png"
+                      alt="oceanindo"
+                      className="h-12"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 mb-4 sm:mb-0">
+                  {/* Client logos here */}
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/Marunda.png"
+                      alt="marunda"
+                      className="h-16"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/bahtera.png"
+                      alt="bahtera"
+                      className="h-20"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/MedcoEnergi.png"
+                      alt="medco"
+                      className="h-16"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/indika.png"
+                      alt="indika"
+                      className="h-32"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/apm.png"
+                      alt="apm"
+                      className="h-auto"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/pertama_jaya.png"
+                      alt="pertamajaya"
+                      className="h-12"
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 mb-4 sm:mb-0">
-                {/* Client logos here */}
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/Marunda.png"
-                    alt="marunda"
-                    className="h-16"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/bahtera.png"
-                    alt="bahtera"
-                    className="h-20"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/MedcoEnergi.png"
-                    alt="medco"
-                    className="h-16"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/indika.png"
-                    alt="indika"
-                    className="h-32"
-                  />
-                </div>
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/apm.png"
-                    alt="apm"
-                    className="h-auto"
-                  />
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <img
-                    src="./img/klien_logo/pertama_jaya.png"
-                    alt="pertamajaya"
-                    className="h-12"
-                  />
-                </div>
-              </div>
-            </div>
+            )}
           </div>
+
           <button
-            type="button"
-            className="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold px-6 py-3 text-sm my-2 inline-flex place-items-center bg-sc06 text-ne01 hover:bg-pr03"
-            id="hs-show-hide-collapse"
-            data-hs-collapse="#hs-show-hide-collapse-heading">
-            <span className="hs-collapse-open:hidden font-montserrat uppercase">
-              Selengkapnya
-            </span>
-            <span className="hs-collapse-open:block hidden font-montserrat uppercase">
-              Ciutkan
-            </span>
+            className="font-semibold font-montserrat uppercase place-items-center px-6 py-3 text-sm my-2 inline-flex place-items-center bg-sc06 text-ne01 hover:bg-pr03"
+            onClick={() => setIsVisible(!isVisible)}>
+            {isVisible ? "Ciutkan" : "Selengkapnya"}
           </button>
         </div>
       </section>
