@@ -24,11 +24,11 @@ export default () => {
   ];
   const shippingAgency = [
     <img
-      src="../img/service/shipping/shipping_agency/Bekerja_Depan_Layar.JPG"
+      src="../img/service/shipping/shipping_agency/Bekerja_Depan_Layar.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Monthly_Meeting.JPG"
+      src="../img/service/shipping/shipping_agency/Monthly_Meeting.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
@@ -44,15 +44,15 @@ export default () => {
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Agent_On_Board.JPG"
+      src="../img/service/shipping/shipping_agency/Agent_On_Board.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Document_Checking.JPG"
+      src="../img/service/shipping/shipping_agency/Document_Checking.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Document_Checking_2.JPG"
+      src="../img/service/shipping/shipping_agency/Document_Checking_2.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
@@ -64,11 +64,11 @@ export default () => {
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Free_Pratique_Clearence.JPG"
+      src="../img/service/shipping/shipping_agency/Free_Pratique_Clearence.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../img/service/shipping/shipping_agency/Custom_Clearence.JPG"
+      src="../img/service/shipping/shipping_agency/Custom_Clearence.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
@@ -163,7 +163,7 @@ export default () => {
       <ImageSlide items={shippingAgency} />
       <div className="bg-pr08">
         <Card
-          imageContent="../img/service/offering.JPG"
+          imageContent="../img/service/offering.jpg"
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

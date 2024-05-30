@@ -29,7 +29,7 @@ export default () => {
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../../img/service/marine/owner/3_own.JPG"
+      src="../../img/service/marine/owner/3_own.jpg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
@@ -93,7 +93,7 @@ export default () => {
       <ImageSlide items={shipOwner} />
       <div className="bg-pr08">
         <Card
-          imageContent="../../img/service/offering.JPG"
+          imageContent="../../img/service/offering.jpg"
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

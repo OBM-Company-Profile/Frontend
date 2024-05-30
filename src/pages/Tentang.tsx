@@ -172,7 +172,7 @@ export default () => {
     <>
       <Navbar />
       <Banner
-        bgImage="./img/tentang_assets/tentang_banner.JPG"
+        bgImage="./img/tentang_assets/tentang_banner.jpg"
         headCaption="Tentang OBM"
         captionSection="OBM didirikan dan melewati masa-masa sulit sejak tahun 2017, 
         namun mampu bertahan melalui krisis & pandemi COVID-19 di tahun 2019 dan terus 
@@ -219,7 +219,7 @@ export default () => {
               <div className="absolute inset-0">
                 <img
                   className="object-cover w-full h-full scale-100 brightness-50"
-                  src="./img/tentang_assets/caption.JPG"
+                  src="./img/tentang_assets/caption.jpg"
                   alt=""
                 />
               </div>

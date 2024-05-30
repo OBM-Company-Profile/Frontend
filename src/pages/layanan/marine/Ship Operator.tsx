@@ -129,7 +129,7 @@ export default () => {
               <div className="absolute inset-0">
                 <img
                   className="object-cover w-full h-full scale-100"
-                  src="../../img/service/marine/operator/caption.JPG"
+                  src="../../img/service/marine/operator/caption.jpg"
                   alt=""
                 />
               </div>
@@ -140,7 +140,7 @@ export default () => {
       <ImageSlide items={shipOperator} />
       <div className="bg-pr08">
         <Card
-          imageContent="../../img/service/offering.JPG"
+          imageContent="../../img/service/offering.jpg"
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :
