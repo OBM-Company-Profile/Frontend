@@ -65,7 +65,7 @@ function Gallery() {
         <div className="md:hidden lg:block space-y-2">
           <img
             className="w-full h-auto object-cover"
-            src="./img/gallery/11.JPG"
+            src="./img/gallery/11.jpg"
             alt="Image Description"
           />
           <img
