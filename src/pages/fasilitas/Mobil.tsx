@@ -74,7 +74,7 @@ export default () => {
         data={data3}
       />
       <Card
-        imageContent="../img/service/offering.JPG"
+        imageContent="../img/service/offering.jpg"
         contentTitle="Ajukan Permintaan Penawaran"
         captionText="Kami siap 24 jam untuk membantu Anda"
         captionText1="Telp : +62-2974-3107 HP : +628121919822 Mail :
