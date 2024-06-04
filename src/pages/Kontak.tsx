@@ -4,8 +4,85 @@ import Footer from "../component/Footer";
 import { FaEnvelope } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa6";
 import "../App.css";
+import { link } from "fs";
+import Accordion from "../component/OperationArea";
 
 export default () => {
+  const items = [
+    {
+      title: "Kantor Pusat",
+      caption: "Kantor Utama",
+      content: "PT. Orela Bahari Mandiri",
+      address:
+        "Jl. Tenggiri No 103 D, Tanjung Priok, Jakarta Utara, 14320 Indonesia",
+      address1: "",
+      address2: "",
+    },
+    {
+      title: "Maringgai",
+      caption: "Cahang Maringgai",
+      content: "Jl. Kuala Penet, Dusun 1 Tegal Asri",
+      address: "Labuhan Maringgai Lampung Timur,",
+      address1: "Lampung",
+      address2: "",
+    },
+    {
+      title: "Merak",
+      caption: "Cabang Merak",
+      content: "Jl. Darma Kusuma Link. Pagebangan",
+      address: "RT.012/RW.003 Gang Darma Kusuma No. 3",
+      address1: "Kel. Ketileng, Kec. Cilegon,",
+      address2: "Kota Cilegon, Banten 42416",
+    },
+    {
+      title: "Samarinda",
+      caption: "Cabang Samarinda",
+      content: "Jl. Marsda A Saleh Gang V, Blok B No. 22",
+      address: "Kel. Sidomulyo, Kec. Samarinda Illir",
+      address1: "Kota Samarinda, Kalimantan Timur, 57116",
+      address2: "",
+    },
+    {
+      title: "Balikpapan",
+      caption: "Cabang Balikpapan",
+      content: "Jalan Riau No.3A, Rt.1",
+      address: "Kel. Prapatan, Kec. Balikpapan Kota,",
+      address1: "Desa/Kelurahan Prapatan, Kec. Balikpapan Kota,",
+      address2: "Kota Balikpapan, Provinsi Kalimantan Timur",
+    },
+    {
+      title: "Banjarmasin",
+      caption: "Cabang Banjarmasin",
+      content: "Jl. Purnasakti Komp. Cara Ya Alam Permai II",
+      address: "No. 5, Rt 029, RW 002",
+      address1: "Desa/Kelurahan Basirih, Kec. Banjarmasin Barat,",
+      address2: "Kota Banjarmasin, Provinsi Kalimantan Selatan",
+    },
+    {
+      title: "Batam",
+      caption: "Cabang Batam",
+      content: "Kawasan Bintang Industri II, Type G No.23 A,",
+      address: "Desa/Kelurahan Tanjung Uncang,",
+      address1: "Kec. Batu Aji,",
+      address2: "Kota Batam, Provinsi Kepulauan Riau",
+    },
+    {
+      title: "Cirebon",
+      caption: "Cabang Cirebon",
+      content: "Penggung Utara Gang Cendrawasih 4 no.87",
+      address: "RT.3/ RW.10, Desa/Kelurahan Harjamukti,",
+      address1: "Kec. Harjamukti, Kota Cirebon, Provinsi Jawa Barat",
+      address2: "",
+    },
+    {
+      title: "Patimban",
+      caption: "Cabang Patimban",
+      content: "Dusun Gempol 1 RT001/Rw.001,",
+      address: "Desa/Kelurahan Gempol, Kec. Pusakanagara,",
+      address1: "Kab. Subang, Provinsi Jawa Barat",
+      address2: "",
+    },
+  ];
   return (
     <>
       <Navbar />
@@ -205,451 +282,8 @@ export default () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
-          <div className="hs-accordion-group">
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-one">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one">
-                Kantor Pusat
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-one"
-                className="flex flex-col sm:flex-row px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-one">
-                <div className="items-start">
-                  <div className="font-montserrat">
-                    <p className="text-base lg:text-lg font-semibold">
-                      Kantor Utama
-                    </p>
-                    <ul>
-                      <li>PT. Orela Bahari Mandiri</li>
-                      <li>
-                        Jl. Tenggiri No 103 D, Tanjung Priok, Jakarta Utara,
-                        14320 Indonesia{" "}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-two">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-two">
-                Maringgai
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-three">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Maringgai</p>
-                  <ul>
-                    <li>Jl. Kuala Penet, Dusun 1 Tegal Asri </li>
-                    <li>Labuhan Maringgai Lampung Timur,</li>
-                    <li>Lampung </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-three">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-three">
-                Merak
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-three"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-three">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Merak</p>
-                  <ul>
-                    <li>Jl. Darma Kusuma Link. Pagebangan</li>
-                    <li> RT.012/RW. 003</li>
-                    <li>Gang Darma Kusuma No. 3</li>
-                    <li>Kel. Ketileng, Kec. Cilegon,</li>
-                    <li>Kota Cilegon, Banten 42416</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-four">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-four">
-                Samarinda
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-four"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-four">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Samarinda</p>
-                  <ul>
-                    <li>Jl. Marsda A Saleh Gang V, Blok B No. 22</li>
-                    <li>Kel. Sidomulyo, Kec. Samarinda Illir</li>
-                    <li>Kota Samarinda, Kalimantan Timur, 57116</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-five">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-five">
-                Balikpapan
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-five"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-five">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Balikpapan</p>
-                  <ul>
-                    <li>Jalan Riau No.3A, Rt.15</li>
-                    <li>Kel. Prapatan, Kec. Balikpapan Kota,</li>
-                    <li>Desa/Kelurahan Prapatan, Kec. Balikpapan Kota,</li>
-                    <li>Kota Balikpapan, Provinsi Kalimantan Timur</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-six">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-six">
-                Banjarmasin
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-six"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-six">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Banjarmasin</p>
-                  <ul>
-                    <li>Jl. Purnasakti Komp. Cara Ya Alam Permai II</li>
-                    <li>No. 5, Rt 029, RW 002</li>
-                    <li>Desa/Kelurahan Basirih, Kec. Banjarmasin Barat,</li>
-                    <li>Kota Banjarmasin, Provinsi Kalimantan Selatan</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-seven">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-seven">
-                Batam
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-seven"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-seven">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Batam</p>
-                  <ul>
-                    <li>Kawasan Bintang Industri II, Type G No.23 A,</li>
-                    <li>Desa/Kelurahan Tanjung Uncang,</li>
-                    <li>Kec. Batu Aji,</li>
-                    <li>Kota Batam, Provinsi Kepulauan Riau</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-eight">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-eight">
-                Cirebon
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-eight"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-eight">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Cirebon</p>
-                  <ul>
-                    <li>Jl. Purnasakti Komp. Cara Ya Alam Permai II</li>
-                    <li>No. 5, Rt 029, RW 002</li>
-                    <li>Desa/Kelurahan Basirih, Kec. Banjarmasin Barat,</li>
-                    <li>Kota Banjarmasin, Provinsi Kalimantan Selatan</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hs-accordion"
-              id="hs-basic-with-title-and-arrow-stretched-heading-nine">
-              <button
-                className="font-raleway text-sm lg:text-base border-b uppercase hs-accordion-toggle hs-accordion-active:text-sc06 py-3 inline-flex items-start justify-between gap-x-3 w-full font-semibold text-start text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-nine">
-                Patimban
-                <svg
-                  className="hs-accordion-active:hidden block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-                <svg
-                  className="hs-accordion-active:block hidden size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="m18 15-6-6-6 6"></path>
-                </svg>
-              </button>
-              <div
-                id="hs-basic-with-title-and-arrow-stretched-collapse-nine"
-                className="px-4 py-8 border-b hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
-                aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-nine">
-                <div className="font-montserrat text-base lg:text-lg">
-                  <p className="font-semibold">Cabang Patimban</p>
-                  <ul>
-                    <li>Dusun Gempol 1 RT001/Rw.001,</li>
-                    <li>Desa/Kelurahan Gempol, Kec. Pusakanagara,</li>
-                    <li>Kab. Subang, Provinsi Jawa Barat</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          <div>
+            <Accordion items={items} />
           </div>
         </div>
       </section>
