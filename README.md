@@ -1,7 +1,7 @@
 # React + TypeScript + Vite
 
 - Open VSCode and open New Terminal
-- Type/paste "git clone https://github.com/OBM-Company-Profile/OBM_Webs" then enter
+- Type/paste "git clone https://github.com/OBM-Company-Profile/OBM_Webs" (**without ""**) then enter
 - After cloning the project, type "cd OBM_Webs" then install Vite with "npm i vite@latest"
 - To test the code, type "npm run dev" then Ctrl + click the url
 
