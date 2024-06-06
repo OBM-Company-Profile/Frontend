@@ -1,5 +1,12 @@
 # React + TypeScript + Vite
 
+- Open VSCode and open New Terminal
+- Type/paste "git clone https://github.com/OBM-Company-Profile/OBM_Webs" then enter
+- After cloning the project, type "cd OBM_Webs" then install Vite with "npm i vite@latest"
+- To test the code, type "npm run dev" then Ctrl + click the url
+
+  **Make sure you've install Node JS and Typescript before running the project**
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
