@@ -8,6 +8,73 @@ import { useState } from "react";
 
 export default () => {
   const [isVisible, setIsVisible] = useState(false);
+  const cardsData = [
+    {
+      title: "Shipping",
+      description: "Kami menyediakan kapal untuk berbagai kebutuhan, seperti :",
+      backgroundImage: "/img/home_assets/shipping.jpeg",
+      desc1: "1. Kapal Cargo",
+      desc2: "2. Kapal Tanker",
+      desc3: "3. Kapal Tugboat",
+      desc4: "4. Kapal Crew Boat",
+      link: "/layanan/shipping",
+    },
+    {
+      title: "Agency",
+      description:
+        "OBM berpengalaman menangani Jasa Keagenan hampir semua jenis kapal, namun tidak terbatas pada kegiatan bongkar muat Ship to Ship di sebagian besar wilayah perairan dan pelabuhan Indonesia.",
+      backgroundImage: "/img/home_assets/agency.jpg",
+      desc1: "",
+      desc2: "",
+      desc3: "",
+      desc4: "",
+      link: "/layanan/shipping",
+    },
+    {
+      title: "Offshore Service",
+      description:
+        "OBM, tidak hanya fokus pada layanan keagenan kapal liner dan tramper tetapi juga melayani keagenan kapal Offshore yang mampu memberikan layanan satu paket.",
+      backgroundImage: "/img/home_assets/offshore.jpg",
+      desc1: "",
+      desc2: "",
+      desc3: "",
+      desc4: "",
+      link: "/layanan/marine",
+    },
+    {
+      title: "Launch Service",
+      description:
+        "Kapal anda bisa terus berlayar sambil kami mengirimkan perbekalan, suku cadang, dan penggantian crew lewat laut tanpa harus menghabiskan biaya tunggu di pelabuhan.",
+      backgroundImage: "/img/home_assets/launch_service.jpeg",
+      desc1: "",
+      desc2: "",
+      desc3: "",
+      desc4: "",
+      link: "/layanan/shipping/launch-service",
+    },
+    {
+      title: "Mooring & Pilotage",
+      description:
+        "OBM memberikan dukungan yang lengkap terhadap kebutuhan bisnis pelayaran termasuk layanan Kepil dan Mooring Master baik di Pelabuhan, Offshore dan kegiatan Ship to Ship.",
+      backgroundImage: "/img/home_assets/mooring.jpg",
+      desc1: "",
+      desc2: "",
+      desc3: "",
+      desc4: "",
+      link: "/layanan/port-service",
+    },
+    {
+      title: "Husbandry Service",
+      description:
+        "Layanan ini bertujuan untuk meminimalkan biaya operasional kapal, khususnya penanganan awak kapal, pengiriman barang-barang kebutuhan kapal dan crew dengan aman.",
+      backgroundImage: "/img/home_assets/husbandry.jpg",
+      desc1: "",
+      desc2: "",
+      desc3: "",
+      desc4: "",
+      link: "/layanan/shipping/husbandry-service",
+    },
+  ];
   return (
     <>
       <Navbar />
@@ -61,165 +128,145 @@ export default () => {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-wrap justify-center lg:justify-start items-center lg:my-12 lg:ml-28 cols-2">
-        <div className="grid grid-cols-2 md:grid-cols-4">
-          <div className="p-6 w-44 h-auto lg:w-60 lg:h-52 bg-pr08 text-ne01">
-            <img
-              className="w-12 h-auto"
-              src="./img/home_assets/icons/employee.png"
-            />
-            <h1 className="text-raleway font-bold text-4xl">200+</h1>
-            <p className="font-montserrat font-medium py-2">Employee</p>
-          </div>
-          <div className="p-6 w-44 h-auto lg:w-60 lg:h-52 bg-pr00 text-ne02">
-            <img
-              className="w-12 h-auto"
-              src="./img/home_assets/icons/branch.png"
-            />
-            <h1 className="text-raleway font-bold text-4xl">30+</h1>
-            <p className="font-montserrat font-medium py-2">
-              Branch & site in Indonesia
-            </p>
-          </div>
-          <div className="p-6 w-44 h-auto lg:w-60 lg:h-52 bg-pr03 text-ne02">
-            <img
-              className="w-12 h-auto"
-              src="./img/home_assets/icons/cargo-ship.png"
-            />
-            <h1 className="text-raleway font-bold text-4xl">1000+</h1>
-            <p className="font-montserrat font-medium py-2">
-              Ship Handling Per Year
-            </p>
-          </div>
-          <div className="p-6 w-44 h-auto lg:w-60 lg:h-52 bg-sc06 text-ne01">
-            <img
-              className="w-12 h-auto"
-              src="./img/home_assets/icons/vendor.png"
-            />
-            <h1 className="text-raleway font-bold text-4xl">50+</h1>
-            <p className="font-montserrat font-medium py-2">
-              Vendors & Share Holder
-            </p>
-          </div>
-        </div>
-      </div>
-      <Content />
-
       <section>
-        <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:my-20">
-          <div>
-            <h1 className="my-2 text-3xl font-raleway font-medium text-ne02 sm:text-4xl">
-              Layanan
-            </h1>
-            <p className="my-8 font-montserrat text-base lg:text-lg">
-              Memanfaatkan sumber daya, pengalaman, dan keahlian group kami
-              menyediakan layanan keagenan dan bisnis pelayaran yang
-              terintegrasi.
-            </p>
-          </div>
-          {/* <Cards /> */}
-          <div className="cards flex items-center">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <a
-                href="/layanan/shipping"
-                className="w-352 h-480 text-ne01 text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/shipping.jpeg')] hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Shipping
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    Kami menyediakan kapal untuk berbagai kebutuhan, seperti :
-                    <ol className="list-decimal px-4">
-                      <li>Kapal Cargo </li>
-                      <li>Kapal Tanker</li>
-                      <li>Kapal Tugboat</li>
-                      <li>Kapal Crew Boat</li>
-                    </ol>
+        <div className="lg:ms-20 ms-4 me-4 sm:ms-3 sm:me-0 lg:ms-24 lg:me-2 px-4 mx-10 lg:ml-16 lg:mt-20 lg:mb-32 sm:px-6 lg:px-8 mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 shadow-sm overflow-hidden">
+            <div className="bg-pr08 block p-4 md:p-5 relative">
+              <div className="flex md:grid lg:flex items-center gap-y-3 gap-x-5">
+                <div className="text-white">
+                  <img
+                    className="w-16 h-auto"
+                    src="./img/home_assets/icons/employee.png"
+                  />
+                  <h1 className="text-raleway font-bold text-4xl">200+</h1>
+                  <p className="font-montserrat font-medium text-base lg:text-lg py-2">
+                    Employee
                   </p>
                 </div>
-              </a>
-              <a
-                href="/layanan/shipping"
-                className="w-352 h-480 text-white text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/agency.jpg')] hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Agency
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    OBM berpengalaman menangani Jasa Keagenan hampir semua jenis
-                    kapal, namun tidak terbatas pada kegiatan bongkar muat Ship
-                    to Ship di sebagian besar wilayah perairan dan pelabuhan
-                    Indonesia.
+              </div>
+            </div>
+
+            <div className="bg-pr00 block p-4 md:p-5 relative">
+              <div className="flex md:grid lg:flex gap-y-3 gap-x-5">
+                <div className="">
+                  <img
+                    className="w-16 h-auto"
+                    src="./img/home_assets/icons/branch.png"
+                  />
+                  <h1 className="text-raleway font-bold text-4xl">30+</h1>
+                  <p className="font-montserrat text-base lg:text-lg font-medium py-2">
+                    Branch & site in Indonesia
                   </p>
                 </div>
-              </a>
-              <a
-                href="/layanan/marine"
-                className="w-352 h-480 text-white text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/offshore.jpg')] hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Offshore Service
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    OBM, tidak hanya fokus pada layanan keagenan kapal liner dan
-                    tramper tetapi juga melayani keagenan kapal Offshore yang
-                    mampu memberikan layanan satu paket.
+              </div>
+            </div>
+
+            <div className="bg-pr03 block p-4 md:p-5 relative">
+              <div className="flex md:grid lg:flex gap-y-3 gap-x-5">
+                <div className="">
+                  <img
+                    className="w-16 h-auto"
+                    src="./img/home_assets/icons/cargo-ship.png"
+                  />
+                  <h1 className="text-raleway font-bold text-4xl">1000+</h1>
+                  <p className="font-montserrat font-medium text-base lg:text-lg py-2">
+                    Ship Handling Per Year
                   </p>
                 </div>
-              </a>
-              <a
-                href="/layanan/shipping/launch-service"
-                className="w-352 h-480 text-white text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/launch_service.jpeg')] bg-center hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Launch Service
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    Kapal anda bisa terus berlayar sambil kami mengirimkan
-                    perbekalan, suku cadang, dan penggantian crew lewat laut
-                    tanpa harus menghabiskan biaya tunggu di pelabuhan.
+              </div>
+            </div>
+
+            <div className="bg-sc06 block p-4 md:p-5 relative">
+              <div className="flex md:grid lg:flex gap-y-3 gap-x-5">
+                <div className="text-white">
+                  <img
+                    className="w-16 h-auto"
+                    src="./img/home_assets/icons/vendor.png"
+                  />
+                  <h1 className="text-raleway font-bold text-4xl">50+</h1>
+                  <p className="font-montserrat font-medium text-base lg:text-lg py-2">
+                    Vendors & Share Holder
                   </p>
                 </div>
-              </a>
-              <a
-                href="/layanan/port-service"
-                className="w-352 h-480 text-white text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/mooring.jpg')] hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Mooring Service
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    OBM memberikan dukungan yang lengkap terhadap kebutuhan
-                    bisnis pelayaran termasuk layanan Kepil dan Mooring Master
-                    baik di Pelabuhan, Offshore dan kegiatan Ship to Ship.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="/layanan/shipping/husbandry-service"
-                className="w-352 h-480 text-white text-left grid bg-cover lg:w-320 xl:w-352 bg-[url('/img/home_assets/husbandry.jpg')] bg-right hover:drop-shadow-md">
-                <div className="w-352 h-480 col-start-1 row-start-1 bg-ne02 lg:w-320 xl:w-352 bg-opacity-50 hover:bg-opacity-75"></div>
-                <div className="p-10 col-start-1 row-start-1 mx-auto my-auto">
-                  <h1 className="font-raleway font-bold text-xl pb-4">
-                    Husbandry Service
-                  </h1>
-                  <p className="font-montserrat font-normal text-base">
-                    Layanan ini bertujuan untuk meminimalkan biaya operasional
-                    kapal, khususnya penanganan awak kapal, pengiriman
-                    barang-barang kebutuhan kapal dan crew dengan aman.
-                  </p>
-                </div>
-              </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
+      <div className="mt-20">
+        <div className="relative">
+          <section className="bg-pr08 overflow-hidden">
+            <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[800px]">
+              <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
+                <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:my-20">
+                  <h1 className="pb-8 text-3xl font-raleway text-medium text-ne01 sm:text-4xl">
+                    Sambutan Direksi
+                  </h1>
+                  <p className="font-montserrat font-semibold text-base lg:text-lg text-ne01 pb-6">
+                    Terima kasih kepada semua Customer yang berbahagia.
+                  </p>
+                  <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
+                    Atas kepercayaan dan dukungan dari customer, OBM mendapatkan
+                    pengalaman bahkan bertahan melalui krisis. Kami memberikan
+                    pelayanan atas semua permintaan pelanggan secara profesional
+                    dan bertanggung jawab, menjadikan tim OBM semakin
+                    berpengalaman, solutif, dan inofatif untuk beradaptasi
+                    memenuhi kebutuhan dan permintaan pelanggan.
+                  </p>
+                  <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
+                    “Ora et Labora” adalah prinsip hidup dan kerja kami untuk
+                    mencapai visi dan misi perusahaan. Tujuan utama kami adalah
+                    menjadikan pelanggan sebagai mitra kerja untuk pencapaian
+                    tujuan yang sama yaitu keberhasilan.
+                  </p>
+                  <p className="font-montserrat text-lg text-ne01 pb-6">
+                    Kekuatan hubungan sosial para Pendiri untuk mengelola dan
+                    membimbing karyawan menjadi gaya dan identitas baru untuk
+                    melayani Pelanggan sebagai Keluarga.
+                  </p>
+                </div>
+              </div>
+              <div className="relative w-full overflow-hidden lg:order-0 h-96 lg:h-auto lg:w-5/12">
+                <div className="absolute inset-0">
+                  <img
+                    className="object-cover w-full h-full scale-10 lg:object-center brightness-100"
+                    src="./img/home_assets/sambutan.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div className="relative">
+        <div className="mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20 lg:mb-0">
+          <h1 className="my-2 text-3xl font-raleway font-medium text-ne02 sm:text-4xl">
+            Layanan
+          </h1>
+          <p className="my-8 font-montserrat text-base lg:text-lg">
+            Memanfaatkan sumber daya, pengalaman, dan keahlian group kami
+            menyediakan layanan keagenan dan bisnis pelayaran yang terintegrasi.
+          </p>
+        </div>
+        <div className="flex justify-center items-center min-h-screen px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {cardsData.map((card, index) => (
+              <Content
+                key={index}
+                title={card.title}
+                description={card.description}
+                backgroundImage={card.backgroundImage}
+                desc1={card.desc1}
+                desc2={card.desc2}
+                desc3={card.desc3}
+                desc4={card.desc4}
+                link={card.link}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
       <section>
         <div className="text-center mb-20">
           <div className="relative mx-6 mt-10 mb-6 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20 lg:mb-4">

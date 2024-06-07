@@ -8,7 +8,7 @@ const Banner = (content: any) => {
         backgroundImage: `url(${content.bgImage})`,
         backgroundRepeat: "no-repeat",
       }}>
-      <div className="absolute inset-0 inset-0 bg-black opacity-35"></div>
+      <div className="absolute inset-0 inset-0 bg-black opacity-60"></div>
       <div className="relative pl-8 sm:mx-20 max-w-screen-2xl px-4 py-32 sm:px-6 lg:flex lg:basis-full lg:h-screen lg:items-center lg:px-8">
         <div className="max-w-xl text-left">
           <h1 className="text-3xl max-w-xl font-medium font-raleway text-ne01 sm:text-4xl/snug lg:text-5xl/snug">
