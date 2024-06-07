@@ -268,9 +268,9 @@ export default () => {
         </div>
       </div>
       <section>
-        <div className="text-center mb-20">
+        <div className="flex flex-col justify-center items-center mb-20">
           <div className="relative mx-6 mt-10 mb-6 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20 lg:mb-4">
-            <h2 className="place-self-start inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl pb-10">
+            <h2 className="inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl pb-10">
               Mitra & Klien Kami
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4">
