@@ -5,7 +5,7 @@
 - After cloning the project, type "cd OBM_Webs" then install Vite with "npm i vite@latest"
 - To test the code, type "npm run dev" then Ctrl + click the url
 
-  **Make sure you've install Node JS and Typescript before running the project**
+  **Make sure you've install Node JS (current version preferred) and Typescript before running the project**
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
