@@ -1,0 +1,25 @@
+{
+  "title": "Mewakili pemilik kapal atau pen-charter untuk mengurus kepentingan kapal asing atau kapal nasional secara profesional selama berada di suatu pelabuhan Indonesia berdasarkan perjanjian kerja sama.",
+  "paragraphs": [
+    "Kami berpengalaman menangani kapal General cargo, tanker, Kapal Pesiar, kapal Supply, Tugboat dan Tongkang, Crew Boat, Container, termasuk kapal offshore, kapal ro-ro, kapal perang, tetapi tidak terbatas pada kegiatan bongkar muat di pelabuhan atau Ship to Ship dengan berbagai layanan pelengkap yang mencakup hub agency, husbandry, bunker fuel supplies, ship spares logistics, underwater hull cleaning, emergency handling, dll.",
+    "Jenis service yang kami tawarkan meliputi :",
+    [
+      {
+        "number": "1.",
+        "title": "Port Agent",
+        "description": "Bertanggung jawab kepada pemilik kapal atau General Agent sehubungan dengan CIQP In/Out Clearance kapal serta berkomunikasi dengan instansi terkait di wilayah pelabuhan dimana kapal melaksanakan kegiatan."
+      },
+      {
+        "number": "2.",
+        "title": "General Agent",
+        "description": "Bertanggung jawab pada pemilik atau penyewa dengan menunjuk Agen Lokal untuk mengatur perkerjaan port agent."
+      },
+      {
+        "number": "3.",
+        "title": "Owner Protecting Agent",
+        "description": "Layanan kami tak terbatas pada port agent dan general agent, tetapi kami dapat berperan sebagai perwakilan owner untuk melaksanakan pengawasan terhadap suatu pekerjaan tertentu untuk melindungi kepentingan pemilik kapal di suatu wilayah kerja pelabuhan."
+      }
+    ]
+  ],
+  "imageSrc": ""
+}

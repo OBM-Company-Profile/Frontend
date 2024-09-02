@@ -1,13 +1,44 @@
 import Navbar from "../component/Navbar";
 import Banner from "../component/Banner";
 import Footer from "../component/Footer";
-import { FaEnvelope } from "react-icons/fa6";
-import { FaWhatsapp } from "react-icons/fa6";
 import "../App.css";
-import { link } from "fs";
 import Accordion from "../component/OperationArea";
+import CardContact from "../component/CardContact";
 
 export default () => {
+  const contacts = [
+    {
+      name: "Dharma Kala’ Tiku",
+      position: "Direktur",
+      phone: 628121919822,
+      email: "dharma@orelabahari.co.id",
+      emailAlt: "bm.orelatpk@yahoo.com",
+    },
+    {
+      name: "Capt. Alimudin",
+      position: "Kepala Cabang Jakarta",
+      phone: 62817106338,
+      email: "alimudin@orelabahari.co.id",
+    },
+    {
+      name: "Ahyar",
+      position: "Operation Manager",
+      phone: 6285882553108,
+      email: "ahyar@orelabahari.co.id",
+    },
+    {
+      name: "Hastuty",
+      position: "Corp Secretary",
+      phone: 6285340171732,
+      email: "hastuty@orelabahari.co.id",
+    },
+    {
+      name: "Miftahul Haq",
+      position: "Cargo Division",
+      phone: 6281299751637,
+      email: "mifta@orelabahari.co.id",
+    },
+  ];
   const items = [
     {
       title: "Kantor Pusat",
@@ -99,174 +130,10 @@ export default () => {
             Tim Kontak 24 Jam
           </h1>
         </div>
-
         <div className="mx-6 mb-10 px-4 lg:px-0 lg:ml-32 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-pr00">
-            <div className="flex items-center gap-x-4 pb-4 sm:pb-6">
-              <div className="grow">
-                <h3 className="text-xl font-medium text-pr07 pb-2">
-                  Dharma Kala’ Tiku
-                </h3>
-                <p className="text-xs font-montserrat text-pr08 uppercase">
-                  Direktur
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-2">
-              <div className="flex gap-x-2">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="https://wa.me/628121919822"
-                  target="_blank">
-                  <FaWhatsapp className="size-6" />
-                </a>
-                <a href="https://wa.me/628121919822" target="_blank">
-                  +62 812-1919-822
-                </a>
-              </div>
-              <div className="flex gap-x-2 font-montserrat">
-                <a
-                  className="inline-flex justify-center mt-2 items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaEnvelope className="size-6" />
-                </a>
-                <ul>
-                  <li>dharma@orelabahari.co.id</li>
-                  <li>bm.orelatpk@yahoo.com</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-pr00">
-            <div className="flex items-center gap-x-4 pb-4 sm:pb-6">
-              <div className="grow">
-                <h3 className="text-xl font-medium text-pr07 pb-2">
-                  Capt. Alimudin
-                </h3>
-                <p className="text-xs font-montserrat text-pr08 uppercase">
-                  Kepala Cabang Jakarta
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-2">
-              <div className="flex gap-x-2">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="https://wa.me/628121919822"
-                  target="_blank">
-                  <FaWhatsapp className="size-6" />
-                </a>
-                <a href="https://wa.me/62817106338" target="_blank">
-                  +62 817-106-338
-                </a>
-              </div>
-              <div className="flex gap-x-2 font-montserrat">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaEnvelope className="size-6" />
-                </a>
-                <p>alimudin@orelabahari.co.id</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-pr00">
-            <div className="flex items-center gap-x-4 pb-4 sm:pb-6">
-              <div className="grow">
-                <h3 className="text-xl font-medium text-pr07 pb-2">Ahyar</h3>
-                <p className="text-xs font-montserrat text-pr08 uppercase">
-                  Operation Manager
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-2">
-              <div className="flex gap-x-2">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaWhatsapp className="size-6" />
-                </a>
-                <p>+62-858-8255-3108</p>
-              </div>
-              <div className="flex gap-x-2 font-montserrat">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaEnvelope className="size-6" />
-                </a>
-                <p>ahyar@orelabahari.co.id</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-pr00">
-            <div className="flex items-center gap-x-4 pb-4 sm:pb-6">
-              <div className="grow">
-                <h3 className="text-xl font-medium text-pr07 pb-2">Hastuty</h3>
-                <p className="text-xs font-montserrat text-pr08 uppercase">
-                  Corp Secretary
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-3 space-y-2">
-              <div className="flex gap-x-2">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="https://wa.me/6285340171732"
-                  target="_blank">
-                  <FaWhatsapp className="size-6" />
-                </a>
-                <a href="https://wa.me/6285340171732" target="_blank">
-                  +62 853-4017-1732
-                </a>
-              </div>
-              <div className="flex gap-x-2 font-montserrat">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaEnvelope className="size-6" />
-                </a>
-                <p>hastuty@orelabahari.co.id</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-pr00">
-            <div className="flex items-center gap-x-4 pb-4 sm:pb-6">
-              <div className="grow">
-                <h3 className="text-xl font-medium text-pr07 pb-2">
-                  Miftahul Haq
-                </h3>
-                <p className="text-xs font-montserrat text-pr08 uppercase">
-                  Cargo Division
-                </p>
-              </div>
-            </div>
-            <div className="mt-4 space-y-2">
-              <div className="flex gap-x-2">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="#">
-                  <FaWhatsapp className="size-6" />
-                </a>
-                <p>+62-812-9975-1637</p>
-              </div>
-              <div className="flex gap-x-2 font-montserrat">
-                <a
-                  className="inline-flex justify-center items-center size-8 text-sm font-medium text-pr08 disabled:opacity-50 disabled:pointer-events-none"
-                  href="mailto:miftah@orelabahari.co.id">
-                  <FaEnvelope className="size-6" />
-                </a>
-                <a href="mailto:miftah@orelabahari.co.id">
-                  miftah@orelabahari.co.id
-                </a>
-              </div>
-            </div>
-          </div>
+          {contacts.map((contact, index) => (
+            <CardContact key={index} {...contact} />
+          ))}
         </div>
       </section>
       <section>

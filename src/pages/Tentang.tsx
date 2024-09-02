@@ -8,7 +8,7 @@ import "../App.css";
 export default () => {
   const tabs = [
     {
-      label: "2017",
+      year: 2017,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -30,7 +30,7 @@ export default () => {
       ),
     },
     {
-      label: "2018",
+      year: 2018,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -49,7 +49,7 @@ export default () => {
       ),
     },
     {
-      label: "2019",
+      year: 2019,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -72,7 +72,7 @@ export default () => {
       ),
     },
     {
-      label: "2020",
+      year: 2020,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -93,7 +93,7 @@ export default () => {
       ),
     },
     {
-      label: "2021",
+      year: 2021,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -111,7 +111,7 @@ export default () => {
       ),
     },
     {
-      label: "2022",
+      year: 2022,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -137,7 +137,7 @@ export default () => {
       ),
     },
     {
-      label: "2023",
+      year: 2023,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">
@@ -157,7 +157,7 @@ export default () => {
       ),
     },
     {
-      label: "2024",
+      year: 2024,
       content: (
         <div className="font-montserrat text-base lg:text-lg">
           <ul className="pl-4 list-disc">

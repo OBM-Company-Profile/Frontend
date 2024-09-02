@@ -25,7 +25,7 @@ export default () => {
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
-      src="../../img/service/logistic/trucking/3_trck.jpg"
+      src="../../img/service/logistic/trucking/3_trck.jpeg"
       className="object-cover w-screen sm:w-80 h-64 sm:h-52"
     />,
     <img
@@ -71,7 +71,7 @@ export default () => {
               <div className="absolute inset-0">
                 <img
                   className="object-cover w-full h-full scale-100"
-                  src="../../img/service/logistic/trucking/caption.jpeg"
+                  src="../../img/service/logistic/trucking/caption.jpg"
                   alt=""
                 />
               </div>

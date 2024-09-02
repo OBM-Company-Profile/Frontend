@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface Tab {
-  label: string;
+  year: number;
   content: React.ReactNode;
 }
 
@@ -24,7 +24,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
                 : "border-transparent text-pr00 hover:text-pr02 hover:border-pr07"
             } flex-grow py-4 px-6 border-b-2 text-xl font-montserrat font-medium`}
             onClick={() => setActiveTab(index)}>
-            {tab.label}
+            {tab.year}
           </button>
         ))}
       </div>

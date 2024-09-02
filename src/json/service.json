@@ -1,0 +1,64 @@
+{
+  "service": [
+    {
+      "title": "Shipping",
+      "description": "Kami menyediakan kapal untuk berbagai kebutuhan, seperti :",
+      "backgroundImage": "https://lh3.googleusercontent.com/pw/AP1GczOAW1wnnuXMYW2lCZLukLz11MR9_gDPdBcWE5HUVVECRJQjFF8vQajKvlgvt5KWu334zjQPVzSB_9ww4AFhsCuI_dVIkALBM51TV46TssbgT7NTDoxRN7qTis7xAo9vtswLPkToRjutVs2nu7D38hQ=w864-h1152-s-no-gm?authuser=1",
+      "desc1": "1. Kapal Cargo",
+      "desc2": "2. Kapal Tanker",
+      "desc3": "3. Kapal Tugboat",
+      "desc4": "4. Kapal Crew Boat",
+      "link": "/layanan/shipping"
+    },
+    {
+      "title": "Agency",
+      "description": "OBM berpengalaman menangani Jasa Keagenan hampir semua jenis kapal, namun tidak terbatas pada kegiatan bongkar muat Ship to Ship di sebagian besar wilayah perairan dan pelabuhan Indonesia.",
+      "backgroundImage": "https://drive.usercontent.google.com/download?id=16ZqqlMvlYMtHkezdNF7jdbGvh54rBu_N&export=view&authuser=0",
+      "desc1": "",
+      "desc2": "",
+      "desc3": "",
+      "desc4": "",
+      "link": "/layanan/shipping"
+    },
+    {
+      "title": "Offshore Service",
+      "description": "OBM, tidak hanya fokus pada layanan keagenan kapal liner dan tramper tetapi juga melayani keagenan kapal Offshore yang mampu memberikan layanan satu paket.",
+      "backgroundImage": "/offshore.jpg",
+      "desc1": "",
+      "desc2": "",
+      "desc3": "",
+      "desc4": "",
+      "link": "/layanan/marine"
+    },
+    {
+      "title": "Launch Service",
+      "description": "Kapal anda bisa terus berlayar sambil kami mengirimkan perbekalan, suku cadang, dan penggantian crew lewat laut tanpa harus menghabiskan biaya tunggu di pelabuhan.",
+      "backgroundImage": "/launch_service.jpeg",
+      "desc1": "",
+      "desc2": "",
+      "desc3": "",
+      "desc4": "",
+      "link": "/layanan/shipping/launch-service"
+    },
+    {
+      "title": "Mooring & Pilotage",
+      "description": "OBM memberikan dukungan yang lengkap terhadap kebutuhan bisnis pelayaran termasuk layanan Kepil dan Mooring Master baik di Pelabuhan, Offshore dan kegiatan Ship to Ship.",
+      "backgroundImage": "/mooring.jpg",
+      "desc1": "",
+      "desc2": "",
+      "desc3": "",
+      "desc4": "",
+      "link": "/layanan/port-service"
+    },
+    {
+      "title": "Husbandry Service",
+      "description": "Layanan ini bertujuan untuk meminimalkan biaya operasional kapal, khususnya penanganan awak kapal, pengiriman barang-barang kebutuhan kapal dan crew dengan aman.",
+      "backgroundImage": "/husbandry.jpg",
+      "desc1": "",
+      "desc2": "",
+      "desc3": "",
+      "desc4": "",
+      "link": "/layanan/shipping/husbandry-service"
+    }
+  ]
+}
