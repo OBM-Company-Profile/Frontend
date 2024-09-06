@@ -50,7 +50,9 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
         </h2>
         <Slider {...settings}>
           {items.map((item, index) => (
-            <div key={index} className="px-4">
+            <div
+              key={index}
+              className="object-cover w-screen sm:w-80 h-64 sm:h-52 px-4">
               {item}
             </div>
           ))}

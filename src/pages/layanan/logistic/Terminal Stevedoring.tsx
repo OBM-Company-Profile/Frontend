@@ -1,11 +1,22 @@
+import { useState, useEffect } from "react";
 import Navbar from "../../../component/Navbar";
 import Banner from "../../../component/Banner";
 import Footer from "../../../component/Footer";
+import axios from "axios";
+import stevedoringData from "../../../json/logistics/terminalStevedoring.json";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/ImageSlide";
 import Navs from "../../../component/Navs";
+import ServiceComponent from "../../../component/ServiceComponent";
+import Carousel from "../../../component/Carousel";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const TerminalStevedoring = () => {
   const links = [
     { path: "/layanan/logistik", label: "Logistics & Transportation" },
     {
@@ -15,72 +26,62 @@ export default () => {
     { path: "/layanan/logistik/trucking", label: "Trucking" },
     { path: "/layanan/logistik/travel", label: "Travel" },
   ];
-  const terminalStevdr = [
+
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "logistics_stevedoring" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "logistics_stevedoring" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/logistic/terminal_stevedoring/1_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/2_tst.jpeg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/3_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/4_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/5_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/6_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/7_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/8_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/9_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/10_tst.JPG"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/11_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/12_tst.JPG"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/13_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/14_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/15_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/terminal_stevedoring/16_tst.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
@@ -91,36 +92,13 @@ export default () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  Fokus untuk mengoptimalkan layanan keagenan kami dengan
-                  menyediakan bongkar muat (stevedore) yang ditangani oleh
-                  sister company.
-                </p>
-                <p className="font-montserrat text-lg text-ne02 pb-6">
-                  Untuk pertanyaan dalam istilah liner atau satu paket layanan
-                  persyaratan agen dan stevedore kami menawarkan beberapa diskon
-                  untuk penanganan agen.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/logistic/terminal_stevedoring/caption.JPG"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={terminalStevdr} />
+      <ServiceComponent
+        title={stevedoringData.title}
+        paragraphs={stevedoringData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -135,3 +113,4 @@ export default () => {
     </>
   );
 };
+export default TerminalStevedoring;

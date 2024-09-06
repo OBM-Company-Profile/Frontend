@@ -2,7 +2,7 @@ import Navbar from "../../component/Navbar";
 import Banner from "../../component/Banner";
 import Footer from "../../component/Footer";
 import Card from "../../component/Card";
-import ImageSlide from "../../component/ImageSlide";
+import ImageSlide from "../../component/Carousel";
 
 export default () => {
   const consulTant = [

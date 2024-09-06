@@ -6,7 +6,7 @@ import Content from "../component/Content";
 import Card from "../component/Card";
 import { useState } from "react";
 
-export default () => {
+const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
   const cardsData = [
     {
@@ -434,3 +434,4 @@ export default () => {
     </>
   );
 };
+export default Home;

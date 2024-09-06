@@ -1,26 +1,19 @@
 import React from "react";
 
-interface UnorderedList {
-  type: "unordered" | string;
-  items: string[];
-}
-
 interface NumberedItem {
   number: string;
   title: string;
   description: string;
 }
 
-type Paragraph = string | NumberedItem[] | UnorderedList;
-
-interface ServiceSectionData {
+interface ServiceComponentProps {
   title: string;
-  paragraphs: Paragraph[];
+  paragraphs: (string | NumberedItem[])[];
   imageSrc: string;
   altImage: string;
 }
 
-const ServiceSection: React.FC<ServiceSectionData> = ({
+const ServiceComponent: React.FC<ServiceComponentProps> = ({
   title,
   paragraphs,
   imageSrc,
@@ -57,17 +50,6 @@ const ServiceSection: React.FC<ServiceSectionData> = ({
                       </div>
                     );
                   }
-                  if (para.type === "unordered") {
-                    return (
-                      <div key={index} className="pb-6">
-                        <ul className="list-disc pl-6">
-                          {para.items.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  }
                   return null;
                 })}
               </div>
@@ -88,4 +70,4 @@ const ServiceSection: React.FC<ServiceSectionData> = ({
   );
 };
 
-export default ServiceSection;
+export default ServiceComponent;

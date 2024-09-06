@@ -1,52 +1,37 @@
 import Banner from "../component/Banner";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
 import docsISO from "../assets/docs/OBM_CERTIFICATE_ISO.pdf";
-import corruptAct from "../assets/docs/OBM-POL-01-0007 Corrupt Policy.pdf";
-import whistleBlow from "../assets/docs/OBM-POL-01-0008 Whistle Blowing Policy.pdf";
-import moneyLaundry from "../assets/docs/OBM-POL-01-0010 Anti-Money Laundering Policy.pdf";
-import codePolicy from "../assets/docs/OBM-POL-01-0009 Code of Conduct Policy.pdf";
-import sanction from "../assets/docs/OBM-POL-01-0011 Sanction Policy.pdf";
 import Accordion from "../component/Accordion";
 
-export default () => {
-  const items = [
-    {
-      title: "Kebijakan Tindakan Korupsi",
-      content:
-        "PT. Orela Bahari Mandiri berkomitmen untuk senantiasa memelihara suatu lingkungan usaha dimana seluruh etika kerja yang baik diterapkan. Setiap hubungan kerja dengan pihak lain harus dengan cara profesional dan wajar di mana setiap karyawan harus menjunjung tinggi standar kualitas dan intregritas.",
-      link: corruptAct,
-      caption: "— Kebijakan Tindakan Korupsi",
-    },
-    {
-      title: "Kebijakan Pelaporan Pelanggaran",
-      content:
-        "PT. Orela Bahari Mandiri, mempunyai kebijakan penerapan sistem pelaporan pelanggaran (Whistle Blowing System) sebagai bagian dari pengendalian PT. Orela Bahari Mandiri dalam rangka mencegah adanya kecurangan dalam perusahaan kami. Sesuai dengan standar etika yang berlaku, setiap pelanggaran yang dilakukan oleh karyawan wajib dilaporkan kepada perusahaan.",
-      link: whistleBlow,
-      caption: "— Kebijakan Pelaporan Pelanggaran",
-    },
-    {
-      title: "Kebijakan Anti Pencucian Uang",
-      content:
-        "Merupakan kebijakan PT. Orela Bahari Mandiri untuk menjalankan bisnis sesuai dengan norma hukum nasional dan internasional yang relevan yang dirancang untuk memerangi pencucian uang dan pendanaan teroris. Serta merupakan komitmen PT. Orela Bahari Mandiri dalam mencegah layanan kami dari kegiatan pencucian uang.",
-      link: moneyLaundry,
-      caption: "— Kebijakan Anti Pencucian Uang",
-    },
-    {
-      title: "Kebijakan Kode Etik",
-      content:
-        "PT. Orela Bahari Mandiri yang bergerak dibidang agensi pelayaran berkomitmen untuk menjalankan bisnis dengan berpegang teguh kepada kode etik bisnis. Setiap individu di dalam organisasi wajib mentaati kode etik yang tertera dalam dokumen kebijakan ini.",
-      link: codePolicy,
-      caption: "— Kebijakan Kode Etik",
-    },
-    {
-      title: "Kebijakan Sanksi",
-      content:
-        "Dalam menjalankan bisnisnya. Dewan direksi dan setiap orang yang bekerja untuk PT. Orela Bahari Mandiri berkomitmen untuk mewujudkan disiplin kerja yang mencerminkan ketaatan, ketertiban, kesadaran dan kesukarelaan. Sehingga dewan direksi dan setiap orang yang bekerja dapat melaksanakan pekerjaannya dengan tertib dan bertanggung jawab dalam rangka mencapai yang telah kami tetapkan.",
-      link: sanction,
-      caption: "— Kebijakan Sanksi",
-    },
-  ];
+type AccordionItem = {
+  id: number;
+  title: string;
+  content: string;
+  link: string;
+  caption: string;
+};
+
+const Quality = () => {
+  const [items, setItems] = useState<AccordionItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3307/api/management_policy"
+        );
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -141,3 +126,4 @@ export default () => {
     </>
   );
 };
+export default Quality;

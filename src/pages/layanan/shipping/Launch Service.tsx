@@ -1,7 +1,7 @@
 import Navbar from "../../../component/Navbar";
 import Banner from "../../../component/Banner";
 import Footer from "../../../component/Footer";
-import ImageSlide from "../../../component/ImageSlide";
+import ImageSlide from "../../../component/Carousel";
 import Card from "../../../component/Card";
 import Navs from "../../../component/Navs";
 

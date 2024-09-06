@@ -1,11 +1,23 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../../component/Navbar";
 import Banner from "../../../component/Banner";
 import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/ImageSlide";
+import Carousel from "../../../component/Carousel";
 import Navs from "../../../component/Navs";
+import truckingData from "../../../json/logistics/trucking.json";
+import ServiceSection from "../../../component/ServiceComponent";
+import axios from "axios";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const Trucking = () => {
+  //navigation to other Logistics page
   const links = [
     { path: "/layanan/logistik", label: "Logistics & Transportation" },
     {
@@ -15,32 +27,62 @@ export default () => {
     { path: "/layanan/logistik/trucking", label: "Trucking" },
     { path: "/layanan/logistik/travel", label: "Travel" },
   ];
-  const truckIng = [
+
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "logistics_truck" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "logistics_truck" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/logistic/trucking/1_trck.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/trucking/2_trck.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/trucking/3_trck.jpeg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/trucking/4_trck.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/trucking/5_trck.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/trucking/6_trck.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
@@ -51,35 +93,13 @@ export default () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  Menyediakan layanan pengangkutan barang dari gudang ke
-                  pelabuhan dan sebaliknya atau ke alamat penerima barang.
-                </p>
-                <p className="font-montserrat text-lg text-ne02 pb-6">
-                  Sebagai suatu rangkaian kegiatan yang terintegrasi pada
-                  layanan logistik dan transportasi darat dengan menggunakan
-                  mobil maupun kereta.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/logistic/trucking/caption.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={truckIng} />
+      <ServiceSection
+        title={truckingData.title}
+        paragraphs={truckingData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -94,3 +114,5 @@ export default () => {
     </>
   );
 };
+
+export default Trucking;

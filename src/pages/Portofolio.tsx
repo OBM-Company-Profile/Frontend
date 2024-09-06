@@ -4,7 +4,7 @@ import Footer from "../component/Footer";
 import Banner from "../component/Banner";
 import Project from "../component/porto/Project";
 
-export default () => {
+const Portofolio = () => {
   return (
     <>
       <Navbar />
@@ -19,3 +19,4 @@ export default () => {
     </>
   );
 };
+export default Portofolio;

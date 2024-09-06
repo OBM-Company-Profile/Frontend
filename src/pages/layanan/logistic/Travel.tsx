@@ -2,10 +2,21 @@ import Navbar from "../../../component/Navbar";
 import Banner from "../../../component/Banner";
 import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/ImageSlide";
+import travelData from "../../../json/logistics/travel.json";
 import Navs from "../../../component/Navs";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import ServiceComponent from "../../../component/ServiceComponent";
+import Carousel from "../../../component/Carousel";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const Travel = () => {
   const links = [
     { path: "/layanan/logistik", label: "Logistics & Transportation" },
     {
@@ -15,32 +26,62 @@ export default () => {
     { path: "/layanan/logistik/trucking", label: "Trucking" },
     { path: "/layanan/logistik/travel", label: "Travel" },
   ];
-  const traVel = [
+
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "fasilitas_mobil" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "logistics_travel" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/logistic/travel/1_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/travel/2_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/travel/3_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/travel/4_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/travel/5_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/logistic/travel/6_trvl.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
@@ -51,37 +92,13 @@ export default () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  Menyediakan layanan pengangkutan penumpang di dalam kota
-                  maupun di luar kota, antar kota maupun antar provinsi dari
-                  sistem door to door atau port to port.
-                </p>
-                <p className="font-montserrat text-lg text-ne02 pb-6">
-                  Layanan ini juga mencakup kegiatan pergantian awak kapal,
-                  termasuk pengurusan dokumen (sign on/off) crew kapal serta
-                  pembaharuan dokumen crew (buku pelaut, passport, visa, dan
-                  izin kerja).
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/fasilitas_assets/mvp.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={traVel} />
+      <ServiceComponent
+        title={travelData.title}
+        paragraphs={travelData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -96,3 +113,4 @@ export default () => {
     </>
   );
 };
+export default Travel;
