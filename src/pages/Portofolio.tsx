@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Gallery from "../component/porto/Gallery";
 import Footer from "../component/Footer";
 import Banner from "../component/Banner";
-import Project from "../component/porto/Project";
 import axios from "axios";
 import ProjectItem from "../component/porto/ProjectItem";
 
@@ -13,13 +12,12 @@ interface ImageData {
   altImage: string;
   category: string;
 }
+
 interface Project {
   id: number;
   year: string;
   title: string;
   description: string;
-  imageSrc: string;
-  altImage: string;
 }
 
 const Portofolio = () => {
@@ -36,7 +34,6 @@ const Portofolio = () => {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        console.log("Fetched projects:", data); // Log data to check its structure
         setProjects(data);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
@@ -54,7 +51,7 @@ const Portofolio = () => {
         });
         setImages(response.data);
       } catch (err) {
-        setError("Failed to fetch image");
+        setError("Failed to fetch images");
       }
     };
 
@@ -62,7 +59,7 @@ const Portofolio = () => {
   }, []);
 
   const visibleProjects = isVisible ? projects : projects.slice(0, 2);
-  const imagesContent = images[0] || { imageSrc: "", altImage: "" };
+
   return (
     <>
       <Navbar />
@@ -75,20 +72,19 @@ const Portofolio = () => {
         <h1 className="inline-block text-3xl font-raleway font-medium text-ne02 sm:text-4xl">
           Proyek
         </h1>
-
-        {/* Display projects */}
-        {visibleProjects.map((project) => (
-          <ProjectItem
-            key={project.id}
-            imageSrc={imagesContent.imageSrc}
-            altImage={imagesContent.altImage}
-            year={project.year}
-            title={project.title}
-            description={project.description}
-          />
-        ))}
-
-        {/* Button to toggle visibility */}
+        {visibleProjects.map((project, index) => {
+          const image = images[index];
+          return (
+            <ProjectItem
+              key={project.id}
+              imageSrc={image?.imageSrc || ""}
+              altImage={image?.altImage || project.title}
+              year={project.year}
+              title={project.title}
+              description={project.description}
+            />
+          );
+        })}
         <button
           className="font-semibold font-montserrat uppercase place-items-center px-6 py-3 text-sm my-2 inline-flex place-items-center bg-sc06 text-ne01 hover:bg-pr03"
           onClick={() => setIsVisible(!isVisible)}>
@@ -100,4 +96,5 @@ const Portofolio = () => {
     </>
   );
 };
+
 export default Portofolio;
