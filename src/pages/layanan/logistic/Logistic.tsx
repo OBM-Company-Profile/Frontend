@@ -27,6 +27,7 @@ const Logistic = () => {
     { path: "/layanan/logistik/travel", label: "Travel" },
   ];
 
+  const [jumbotron, setJumbotron] = useState<ImageData[]>();
   const [images, setImages] = useState<ImageData[]>([]);
   const [carousel, setCarousel] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);

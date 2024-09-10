@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../component/Navbar";
-import Banner from "../../component/Banner";
+import Jumbotron from "../../component/Jumbotron";
 import Footer from "../../component/Footer";
 import Card from "../../component/Card";
 import konsultanData from "../../json/konsultan/konsultan.json";
@@ -16,11 +16,29 @@ interface ImageData {
 }
 
 const Konsultan = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [carousel, setCarousel] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[8] || { imageSrc: "", altImage: "" };
+
+  //fetch caption image
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -39,6 +57,7 @@ const Konsultan = () => {
   // Using the first image from category
   const firstImage = images[0] || { imageSrc: "", altImage: "" };
 
+  //fetch carousel images
   useEffect(() => {
     const fetchCarousel = async () => {
       try {
@@ -70,14 +89,16 @@ const Konsultan = () => {
       className="w-full h-full lg:h-[200px] object-cover"
     />
   ));
+
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../img/service/consultant/consultant_jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Konsultan & Marine Correspondent"
         captionSection="Menjangkau pengurusan legalitas, administrasi, dan teknis operasional kapal dan perusahaan"
         btnAction="none"
+        showButton={false}
       />
       <section className="overflow-hidden lg:py-20">
         <ServiceComponent

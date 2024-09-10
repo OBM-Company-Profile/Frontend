@@ -1,9 +1,8 @@
-import Banner from "../component/Banner";
+import Jumbotron from "../component/Jumbotron";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
-import docsISO from "../assets/docs/OBM_CERTIFICATE_ISO.pdf";
 import Accordion from "../component/Accordion";
 
 interface ImageData {
@@ -22,8 +21,13 @@ type AccordionItem = {
 };
 
 const Quality = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [items, setItems] = useState<AccordionItem[]>([]);
+  const [singleLink, setSingleLink] = useState<{
+    link: string;
+    caption: string;
+  }>({ link: "", caption: "" });
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -46,27 +50,57 @@ const Quality = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[2] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchAccordionItems = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3307/api/management_policy"
         );
-        setItems(response.data);
+        const fetchedItems = response.data;
+
+        // Set the first 5 items for the accordion
+        setItems(fetchedItems.slice(0, 5));
+
+        // Set the 6th item for the separate link and caption
+        if (fetchedItems.length > 5) {
+          const sixthItem = fetchedItems[5];
+          setSingleLink({
+            link: sixthItem.link,
+            caption: sixthItem.caption,
+          });
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
+    fetchAccordionItems();
   }, []);
 
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="./img/quality/quality_banner.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Quality"
         captionSection="Zero delay, zero incident, zero complain"
+        btnAction="none"
+        showButton={false}
       />
       <section>
         <div className="relative items-center mx-6 gap-x-8 my-10 sm:my-20 lg:mx-32">
@@ -136,9 +170,9 @@ const Quality = () => {
             </p>
             <a
               className="font-raleway text-base font-semibold text-pr08 sm:text-lg hover:text-sc06 underline"
-              href={docsISO}
+              href={singleLink.link}
               target="_blank">
-              Sertifikat ISO
+              {singleLink.caption}
             </a>
           </div>
         </div>

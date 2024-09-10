@@ -1,12 +1,17 @@
 import Navbar from "../component/Navbar";
-import Banner from "../component/Banner";
 import Footer from "../component/Footer";
 import "../App.css";
 import OperationArea from "../component/OperationArea";
 import CardContact from "../component/CardContact";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import Jumbotron from "../component/Jumbotron";
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
 interface operationArea {
   title: string;
   caption: string;
@@ -26,8 +31,26 @@ interface Contact {
 }
 
 const Kontak = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [items, setItems] = useState<operationArea[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[11] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     // Fetch contacts from backend
@@ -64,13 +87,13 @@ const Kontak = () => {
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../img/service/consultant/consultant_jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Kontak"
         captionSection="Kami siap untuk membantu segala kebutuhan Anda"
         btnAction="none"
+        showButton={false}
       />
-
       <section className="mb-20">
         <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:my-20">
           <h1 className="text-3xl font-raleway font-medium text-ne02 lg:text-4xl">

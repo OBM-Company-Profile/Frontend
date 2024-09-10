@@ -1,9 +1,36 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "home" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
 
   let activeClassName = "text-sc06";
   return (
@@ -34,7 +61,11 @@ const Navbar: React.FC = () => {
       <nav className="lg:pr-6 lg:px-4 w-full relative bg-white shadow">
         <div className="flex items-center justify-between">
           <a href="/">
-            <img className="w-16 mx-4 py-3" src="/logo_obm.png" alt="Logo" />
+            <img
+              className="w-16 mx-4 py-3"
+              src={firstImage.imageSrc}
+              alt={firstImage.altImage}
+            />
           </a>
           <div className="hidden lg:flex space-x-6">
             <div className="py-4 text-sm uppercase hover:text-sc06 font-montserrat font-semibold text-pr08">

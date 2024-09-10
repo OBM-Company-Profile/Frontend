@@ -4,10 +4,37 @@ import Jumbotron from "../component/Jumbotron";
 import Button from "../component/Button";
 import Content from "../component/Content";
 import Card from "../component/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
 
 const Home = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+
+  const banner = jumbotron[0] || { imageSrc: "", altImage: "" };
   const cardsData = [
     {
       title: "Shipping",
@@ -79,13 +106,15 @@ const Home = () => {
     <>
       <Navbar />
       <Jumbotron
-        bgImage="./img/home_assets/banner_home.jpg"
+        bgImage={banner.imageSrc}
         headCaption="Melayani berbagai kebutuhan kapal Anda"
         captionSection="Didukung keahlian serta pengalaman, PT. Orela Bahari Mandiri telah
             menangani berbagai jenis kebutuhan keagenan kapal dan pelayaran yang
             sesuai dengan kebutuhan bisnis pelanggan."
         btnAction="Company Profile"
+        showButton={true} // Pass `true` to show the button
       />
+
       {/* <Jumbotron /> */}
 
       {/*  */}
