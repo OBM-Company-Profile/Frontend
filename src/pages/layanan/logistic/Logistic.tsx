@@ -92,6 +92,7 @@ const Logistic = () => {
         btnAction="none"
       />
       <Navs links={links} />
+
       <ServiceComponent
         title={logisticData.title}
         paragraphs={logisticData.paragraphs}

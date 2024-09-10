@@ -2,118 +2,65 @@ import Navbar from "../component/Navbar";
 import Banner from "../component/Banner";
 import Footer from "../component/Footer";
 import "../App.css";
-import Accordion from "../component/OperationArea";
+import OperationArea from "../component/OperationArea";
 import CardContact from "../component/CardContact";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default () => {
-  const contacts = [
-    {
-      name: "Dharma Kala’ Tiku",
-      position: "Direktur",
-      phone: 628121919822,
-      email: "dharma@orelabahari.co.id",
-      emailAlt: "bm.orelatpk@yahoo.com",
-    },
-    {
-      name: "Capt. Alimudin",
-      position: "Kepala Cabang Jakarta",
-      phone: 62817106338,
-      email: "alimudin@orelabahari.co.id",
-    },
-    {
-      name: "Ahyar",
-      position: "Operation Manager",
-      phone: 6285882553108,
-      email: "ahyar@orelabahari.co.id",
-    },
-    {
-      name: "Hastuty",
-      position: "Corp Secretary",
-      phone: 6285340171732,
-      email: "hastuty@orelabahari.co.id",
-    },
-    {
-      name: "Miftahul Haq",
-      position: "Cargo Division",
-      phone: 6281299751637,
-      email: "mifta@orelabahari.co.id",
-    },
-  ];
-  const items = [
-    {
-      title: "Kantor Pusat",
-      caption: "Kantor Utama",
-      content: "PT. Orela Bahari Mandiri",
-      address:
-        "Jl. Tenggiri No 103 D, Tanjung Priok, Jakarta Utara, 14320 Indonesia",
-      address1: "",
-      address2: "",
-    },
-    {
-      title: "Maringgai",
-      caption: "Cahang Maringgai",
-      content: "Jl. Kuala Penet, Dusun 1 Tegal Asri",
-      address: "Labuhan Maringgai Lampung Timur,",
-      address1: "Lampung",
-      address2: "",
-    },
-    {
-      title: "Merak",
-      caption: "Cabang Merak",
-      content: "Jl. Darma Kusuma Link. Pagebangan",
-      address: "RT.012/RW.003 Gang Darma Kusuma No. 3",
-      address1: "Kel. Ketileng, Kec. Cilegon,",
-      address2: "Kota Cilegon, Banten 42416",
-    },
-    {
-      title: "Samarinda",
-      caption: "Cabang Samarinda",
-      content: "Jl. Marsda A Saleh Gang V, Blok B No. 22",
-      address: "Kel. Sidomulyo, Kec. Samarinda Illir",
-      address1: "Kota Samarinda, Kalimantan Timur, 57116",
-      address2: "",
-    },
-    {
-      title: "Balikpapan",
-      caption: "Cabang Balikpapan",
-      content: "Jalan Riau No.3A, Rt.1",
-      address: "Kel. Prapatan, Kec. Balikpapan Kota,",
-      address1: "Desa/Kelurahan Prapatan, Kec. Balikpapan Kota,",
-      address2: "Kota Balikpapan, Provinsi Kalimantan Timur",
-    },
-    {
-      title: "Banjarmasin",
-      caption: "Cabang Banjarmasin",
-      content: "Jl. Purnasakti Komp. Cara Ya Alam Permai II",
-      address: "No. 5, Rt 029, RW 002",
-      address1: "Desa/Kelurahan Basirih, Kec. Banjarmasin Barat,",
-      address2: "Kota Banjarmasin, Provinsi Kalimantan Selatan",
-    },
-    {
-      title: "Batam",
-      caption: "Cabang Batam",
-      content: "Kawasan Bintang Industri II, Type G No.23 A,",
-      address: "Desa/Kelurahan Tanjung Uncang,",
-      address1: "Kec. Batu Aji,",
-      address2: "Kota Batam, Provinsi Kepulauan Riau",
-    },
-    {
-      title: "Cirebon",
-      caption: "Cabang Cirebon",
-      content: "Penggung Utara Gang Cendrawasih 4 no.87",
-      address: "RT.3/ RW.10, Desa/Kelurahan Harjamukti,",
-      address1: "Kec. Harjamukti, Kota Cirebon, Provinsi Jawa Barat",
-      address2: "",
-    },
-    {
-      title: "Patimban",
-      caption: "Cabang Patimban",
-      content: "Dusun Gempol 1 RT001/Rw.001,",
-      address: "Desa/Kelurahan Gempol, Kec. Pusakanagara,",
-      address1: "Kab. Subang, Provinsi Jawa Barat",
-      address2: "",
-    },
-  ];
+interface operationArea {
+  title: string;
+  caption: string;
+  content: string;
+  address: string;
+  address1: string;
+  address2: string;
+}
+
+interface Contact {
+  id: number;
+  name: string;
+  position: string;
+  phone: number;
+  email: string;
+  emailAlt?: string;
+}
+
+const Kontak = () => {
+  const [items, setItems] = useState<operationArea[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
+    // Fetch contacts from backend
+    const fetchContacts = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3307/api/contact_person"
+        );
+        const data = await response.json();
+        setContacts(data);
+      } catch (error) {
+        console.error("Error fetching contacts:", error);
+      }
+    };
+
+    fetchContacts();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3307/api/operation_area"
+        );
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -131,8 +78,15 @@ export default () => {
           </h1>
         </div>
         <div className="mx-6 mb-10 px-4 lg:px-0 lg:ml-32 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {contacts.map((contact, index) => (
-            <CardContact key={index} {...contact} />
+          {contacts.map((contact) => (
+            <CardContact
+              key={contact.id}
+              name={contact.name}
+              position={contact.position}
+              phone={contact.phone}
+              email={contact.email}
+              emailAlt={contact.emailAlt}
+            />
           ))}
         </div>
       </section>
@@ -150,7 +104,7 @@ export default () => {
               referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div>
-            <Accordion items={items} />
+            <OperationArea items={items} />
           </div>
         </div>
       </section>
@@ -158,3 +112,4 @@ export default () => {
     </>
   );
 };
+export default Kontak;
