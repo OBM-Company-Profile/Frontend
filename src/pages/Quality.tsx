@@ -6,6 +6,13 @@ import Navbar from "../component/Navbar";
 import docsISO from "../assets/docs/OBM_CERTIFICATE_ISO.pdf";
 import Accordion from "../component/Accordion";
 
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
 type AccordionItem = {
   id: number;
   title: string;
@@ -15,7 +22,28 @@ type AccordionItem = {
 };
 
 const Quality = () => {
+  const [images, setImages] = useState<ImageData[]>([]);
   const [items, setItems] = useState<AccordionItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "quality" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,26 +88,32 @@ const Quality = () => {
             <div className="my-6">
               <div className="grid lg:grid-cols-2 gap-3">
                 <figure className="relative w-full h-48 sm:h-72 lg:h-full">
-                  <img
-                    className="size-full absolute top-0 start-0 object-cover"
-                    src="./img/quality/content2.jpg"
-                    alt="Image Description"
-                  />
+                  {images.length > 1 && (
+                    <img
+                      className="size-full absolute top-0 start-0 object-cover"
+                      src={images[1]?.imageSrc} // First image from the list
+                      alt={images[1]?.altImage || "hse"}
+                    />
+                  )}
                 </figure>
                 <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
                   <figure className="relative w-full h-36 sm:h-60">
-                    <img
-                      className="size-full absolute top-0 start-0 object-cover object-center"
-                      src="./img/quality/content3.jpg"
-                      alt="Image Description"
-                    />
+                    {images.length > 2 && (
+                      <img
+                        className="size-full absolute top-0 start-0 object-cover"
+                        src={images[2]?.imageSrc} // First image from the list
+                        alt={images[2]?.altImage || "hse"}
+                      />
+                    )}
                   </figure>
                   <figure className="relative w-full h-36 sm:h-60">
-                    <img
-                      className="size-full absolute top-0 start-0 object-cover object-center"
-                      src="./img/quality/content1.jpg"
-                      alt="Image Description"
-                    />
+                    {images.length > 0 && (
+                      <img
+                        className="size-full absolute top-0 start-0 object-cover"
+                        src={images[0]?.imageSrc} // First image from the list
+                        alt={images[0]?.altImage || "hse"}
+                      />
+                    )}
                   </figure>
                 </div>
               </div>
