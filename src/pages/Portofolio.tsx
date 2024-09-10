@@ -1,10 +1,10 @@
 import Navbar from "../component/Navbar";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Gallery from "../component/porto/Gallery";
 import Footer from "../component/Footer";
-import Banner from "../component/Banner";
 import axios from "axios";
 import ProjectItem from "../component/porto/ProjectItem";
+import Jumbotron from "../component/Jumbotron";
 
 interface ImageData {
   id: number;
@@ -21,10 +21,27 @@ interface Project {
 }
 
 const Portofolio = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[9] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -63,10 +80,12 @@ const Portofolio = () => {
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="./img/portofolio/banner_porto.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Portofolio"
         captionSection="Sekilas tentang proyek dan galeri foto kami"
+        btnAction="none"
+        showButton={false}
       />
       <div className="my-10 bg-transparent text-center">
         <h1 className="inline-block text-3xl font-raleway font-medium text-ne02 sm:text-4xl">

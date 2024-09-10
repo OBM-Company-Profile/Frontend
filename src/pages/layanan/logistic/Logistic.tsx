@@ -8,6 +8,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ServiceComponent from "../../../component/ServiceComponent";
 import Carousel from "../../../component/Carousel";
+import Jumbotron from "../../../component/Jumbotron";
 
 interface ImageData {
   id: number;
@@ -27,11 +28,27 @@ const Logistic = () => {
     { path: "/layanan/logistik/travel", label: "Travel" },
   ];
 
-  const [jumbotron, setJumbotron] = useState<ImageData[]>();
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [carousel, setCarousel] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[7] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -86,11 +103,12 @@ const Logistic = () => {
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../img/service/logistic/logistic_jumbotron.jpeg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Logistic"
         captionSection="Kami menghadirkan layanan satu pintu untuk berbagai jenis kebutuhan transportasi"
         btnAction="none"
+        showButton={false}
       />
       <Navs links={links} />
 

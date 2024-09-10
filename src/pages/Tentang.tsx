@@ -1,11 +1,58 @@
 import Navbar from "../component/Navbar";
-import Banner from "../component/Banner";
 import Footer from "../component/Footer";
 import Card from "../component/Card";
 import Timeline from "../component/Timeline";
 import "../App.css";
+import Jumbotron from "../component/Jumbotron";
+import { useEffect, useState } from "react";
+import axios from "axios";
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
 
-export default () => {
+const Tentang = () => {
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[1] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "tentang" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   const tabs = [
     {
       year: 2017,
@@ -171,12 +218,14 @@ export default () => {
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="./img/tentang_assets/tentang_banner.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Tentang OBM"
         captionSection="OBM didirikan dan melewati masa-masa sulit sejak tahun 2017, 
         namun mampu bertahan melalui krisis & pandemi COVID-19 di tahun 2019 dan terus 
         sampai saat ini."
+        btnAction="none"
+        showButton={false}
       />
       <div className="relative">
         <section className="bg-pr09 overflow-hidden">
@@ -217,11 +266,13 @@ export default () => {
             </div>
             <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
               <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100 brightness-50"
-                  src="./img/tentang_assets/caption.jpg"
-                  alt=""
-                />
+                {images.length > 0 && (
+                  <img
+                    className="object-cover w-full h-full scale-100 brightness-50"
+                    src={images[0]?.imageSrc} // First image from the list
+                    alt={images[0]?.altImage || "tentang"}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -240,8 +291,11 @@ export default () => {
 
       <section>
         <div
-          className="relative bg-cover bg-center bg-[url('/img/tentang_assets/bg_visi_misi.jpg')] lg:h-[550px] w-full
-         flex  justify-center">
+          className="relative bg-cover bg-centerlg:h-[550px] w-full flex justify-center"
+          style={{
+            backgroundImage:
+              images.length > 1 ? `url(${images[1]?.imageSrc})` : "none",
+          }}>
           <div className="px-10 py-20 lg:px-0 lg:pl-32 lg:pr-20 lg:py-20py-8 bg-ne02 w-screen items-center h-full bg-opacity-75">
             <div className="flex flex-col lg:flex-row gap-x-10">
               <div className="mb-10 mx-0">
@@ -443,3 +497,5 @@ export default () => {
     </>
   );
 };
+
+export default Tentang;

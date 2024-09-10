@@ -16,9 +16,8 @@ interface ImageData {
 const Home = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [images, setImages] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
@@ -35,6 +34,26 @@ const Home = () => {
   }, []);
 
   const banner = jumbotron[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "home" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   const cardsData = [
     {
       title: "Shipping",
@@ -144,16 +163,20 @@ const Home = () => {
           </div>
 
           <div className="lg:col-span-3 mt-10 lg:mt-0">
-            <img
-              className="w-auto h-auto lg:hidden"
-              src="./img/home_assets/intro_mobile.jpeg"
-              alt="Image Description"
-            />
-            <img
-              className="hidden lg:inline-block lg:w-auto lg:h-auto"
-              src="./img/home_assets/intro_desktop.jpeg"
-              alt="Image Description"
-            />
+            {images.length > 2 && (
+              <img
+                className="w-auto h-auto lg:hidden"
+                src={images[2]?.imageSrc} // First image from the list
+                alt={images[2]?.altImage || "sekilas OBM"}
+              />
+            )}
+            {images.length > 1 && (
+              <img
+                className="hidden lg:inline-block lg:w-auto lg:h-auto"
+                src={images[1]?.imageSrc} // First image from the list
+                alt={images[1]?.altImage || "sekilas OBM"}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -257,11 +280,13 @@ const Home = () => {
               </div>
               <div className="relative w-full overflow-hidden lg:order-0 h-96 lg:h-auto lg:w-5/12">
                 <div className="absolute inset-0">
-                  <img
-                    className="object-cover w-full h-full scale-10 lg:object-center brightness-100"
-                    src="./img/home_assets/sambutan.jpg"
-                    alt=""
-                  />
+                  {images.length > 3 && (
+                    <img
+                      className="object-cover w-full h-full scale-10 lg:object-center brightness-100"
+                      src={images[3]?.imageSrc} // First image from the list
+                      alt={images[3]?.altImage || "sambutan"}
+                    />
+                  )}
                 </div>
               </div>
             </div>
