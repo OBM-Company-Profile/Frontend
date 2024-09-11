@@ -4,8 +4,21 @@ import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
 import ImageSlide from "../../../component/Carousel";
 import Navs from "../../../component/Navs";
+import axios from "axios";
+import dockData from "../../../json/portService/dryDocking.json";
+import { useState, useEffect } from "react";
+import ServiceComponent from "../../../component/ServiceComponent";
+import Carousel from "../../../component/Carousel";
+import Jumbotron from "../../../component/Jumbotron";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const DryDocking = () => {
   const links = [
     {
       path: "/layanan/port-service",
@@ -16,124 +29,96 @@ export default () => {
       label: "Dry Docking",
     },
   ];
-  const dryDocking = [
+
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[6] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "port_docking" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "port_docking" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/port_service/docking/1_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/2_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/3_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/4_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/5_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/6_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/7_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/8_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/9_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/10_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/11_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/12_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/13_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/14_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/15_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/16_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/17_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/18_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/port_service/docking/19_doc.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../../../img/service/port_service/docking/jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Port Service"
         captionSection="Kami melayani kapal anda secara terintegrasi"
         btnAction="none"
+        showButton={false} // Pass `true` to show the button
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  OBM melayani jasa keagenan kapal docking mulai dari In/Out
-                  Clearance, sertifikasi, penanganan akomodasi dan perizinan
-                  crew, superintenden dan teknisi, manajemen dan pengiriman
-                  perlengkapan suku cadang.
-                </p>
-                <p className="font-montserrat text-lg text-ne02 pb-6">
-                  OBM juga menyediakan shipyard melalui kemitraan dengan sister
-                  company di wilayah Lamongan, Jawa Timur.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/port_service/docking/caption.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={dryDocking} />
+      <ServiceComponent
+        title={dockData.title}
+        paragraphs={dockData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -148,3 +133,5 @@ export default () => {
     </>
   );
 };
+
+export default DryDocking;

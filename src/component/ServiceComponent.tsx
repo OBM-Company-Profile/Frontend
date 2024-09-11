@@ -1,14 +1,21 @@
 import React from "react";
 
-interface NumberedItem {
-  number: string;
-  title: string;
-  description: string;
+// Adjusted interface for UnorderedItem
+interface UnorderedItem {
+  type: string; // Accept any string type
+  items: string[];
 }
 
+interface NumberedItem {
+  number?: string;
+  title?: string;
+  description?: string;
+}
+
+// ServiceComponentProps now expects more cases
 interface ServiceComponentProps {
   title: string;
-  paragraphs: (string | NumberedItem[])[];
+  paragraphs: (string | NumberedItem[] | UnorderedItem)[];
   imageSrc: string;
   altImage: string;
 }
@@ -48,6 +55,17 @@ const ServiceComponent: React.FC<ServiceComponentProps> = ({
                           </div>
                         ))}
                       </div>
+                    );
+                  }
+                  if (para.type === "unordered") {
+                    return (
+                      <ul key={index} className="list-disc pl-6 pb-6">
+                        {para.items.map((item, idx) => (
+                          <li key={idx} className="pb-2">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     );
                   }
                   return null;

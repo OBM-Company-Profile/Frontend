@@ -1,11 +1,22 @@
 import Navbar from "../../../component/Navbar";
-import Banner from "../../../component/Banner";
+import opaData from "../../../json/shipping/opaAgent.json";
 import Footer from "../../../component/Footer";
-import ImageSlide from "../../../component/Carousel";
 import Card from "../../../component/Card";
 import Navs from "../../../component/Navs";
+import Jumbotron from "../../../component/Jumbotron";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import ServiceComponent from "../../../component/ServiceComponent";
+import Carousel from "../../../component/Carousel";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const ProtectingAgency = () => {
   const links = [
     {
       path: "/layanan/shipping",
@@ -22,134 +33,97 @@ export default () => {
       label: "Emergency Response",
     },
   ];
-  const ownerPA = [
+
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[3] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "shipping_opa" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "shipping_opa" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/shipping/opa/1_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/2_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/3_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/4_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/5_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/6_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/7_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/8_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/9_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/10_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/11_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/12_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/13_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/14_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/15_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/16_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/17_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/18_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/19_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/shipping/opa/20_o.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../../img/service/shipping/shipping_agency/Shipping_Agency_Jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Shipping"
         captionSection="Melayani clearence CIQP dan sebagai mata rantai logistik kebutuhan kapal"
         btnAction="none"
+        showButton={false}
       />
-
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <Navs links={links} />
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-0">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  Tetap terhubung dan perbaharui informasi kondisi kapal anda di
-                  pelabuhan dengan menunjuk Owner Protecting Agent (OPA) untuk
-                  memastikan semua kegiatan berjalan sesuai dengan syarat dan
-                  perjanjian yang telah disepakati dengan pihak pencarter di
-                  pelabuhan yang dikunjungi.
-                </p>
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  OBM akan melaksanakan pengawasan operasi dan perlindungan
-                  kepentingan owner dan memberikan saran terhadap FDA,
-                  Pembayaran, status kegiatan Operasional, Pemeriksaan dokumen
-                  dan melaksanakan Tindakan hukum yang diperlukan jika ada
-                  perselisihan.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/shipping/opa/caption.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={ownerPA} />
-      {/* <ImageSlide /> */}
+      <Navs links={links} />
+      <ServiceComponent
+        title={opaData.title}
+        paragraphs={opaData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -164,3 +138,4 @@ export default () => {
     </>
   );
 };
+export default ProtectingAgency;
