@@ -1,16 +1,45 @@
-import Banner from "../../component/Banner";
+import Jumbotron from "../../component/Jumbotron";
 import Card from "../../component/Card";
 import Footer from "../../component/Footer";
 import Navbar from "../../component/Navbar";
 import FasilitasCard from "../../component/fasilitas/FasilitasCard";
 import Navs from "../../component/Navs";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const Kapal = () => {
   const links = [
     { path: "/fasilitas", label: "Kapal" },
     { path: "/fasilitas/mobil", label: "Mobil" },
     { path: "/fasilitas/kantor", label: "Kantor" },
   ];
+
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (error) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
+
   const column1 = [
     { header: "Name", accessor: "name" },
     { header: "Col", accessor: "col" },
@@ -103,10 +132,12 @@ export default () => {
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="./img/fasilitas_assets/fasilitas_banner.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Fasilitas"
         captionSection="Armada pendukung"
+        showButton={false}
+        btnAction="none"
       />
       <Navs links={links} />
       <FasilitasCard
@@ -149,3 +180,4 @@ export default () => {
     </>
   );
 };
+export default Kapal;

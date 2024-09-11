@@ -1,11 +1,22 @@
 import Navbar from "../../../component/Navbar";
-import Banner from "../../../component/Banner";
+import Jumbotron from "../../../component/Jumbotron";
+import fpsoData from "../../../json/marine/fpSO.json";
+import ServiceComponent from "../../../component/ServiceComponent";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/Carousel";
 import Navs from "../../../component/Navs";
+import Carousel from "../../../component/Carousel";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const FPSO = () => {
   const links = [
     {
       path: "/layanan/marine",
@@ -19,69 +30,97 @@ export default () => {
       label: "FPSO",
     },
   ];
-  const fpSO = [
+
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[4] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "marine_fpso" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "marine_fpso" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/marine/fpso/1_fp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/fpso/2_fp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/fpso/3_fp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/fpso/4_fp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/fpso/5_fp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../../img/service/marine/marine_jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Marine"
         captionSection="Penghubung bisnis intermoda transportasi dan pengelolaan potensi ekonomi sumber daya laut"
         btnAction="none"
+        showButton={false}
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  OBM menjangkau layanan pendukung pengelolaan FSO/FPSO minyak
-                  dan gas dengan menawarkan service satu paket mulai dari
-                  pengadaan armada pendukung, keagenan, perizinan, perbekalan,
-                  pengadaan tenaga kerja (crew), dan layanan mooring master.
-                </p>
-                <p className="font-montserrat text-base sm:text-lg text-ne02 pb-6">
-                  Kami mampu berkoordinasi dengan pihak pengelola dan regulator
-                  setempat untuk kelancaran operasional kapal dipelabuhan maupun
-                  port limit.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/marine/fpso/caption.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={fpSO} />
+      <ServiceComponent
+        title={fpsoData.title}
+        paragraphs={fpsoData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -96,3 +135,4 @@ export default () => {
     </>
   );
 };
+export default FPSO;

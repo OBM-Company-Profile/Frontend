@@ -1,11 +1,22 @@
 import Navbar from "../../../component/Navbar";
-import Banner from "../../../component/Banner";
+import operatorData from "../../../json/marine/shipOperator.json";
 import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/Carousel";
 import Navs from "../../../component/Navs";
+import ServiceComponent from "../../../component/ServiceComponent";
+import Jumbotron from "../../../component/Jumbotron";
+import Carousel from "../../../component/Carousel";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-export default () => {
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const ShipOperator = () => {
   const links = [
     {
       path: "/layanan/marine",
@@ -19,125 +30,97 @@ export default () => {
       label: "FPSO",
     },
   ];
-  const shipOperator = [
+
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [carousel, setCarousel] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchJumbotron = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "jumbotron" },
+        });
+        setJumbotron(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchJumbotron();
+  }, []);
+  const banner = jumbotron[4] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "marine_operator" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  // Using the first image from category
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "marine_operator" }, // Specify category
+        });
+        // Exclude the first image
+        const carousel = response.data;
+        setCarousel(carousel.slice(1)); // Exclude the first image
+      } catch (err) {
+        setError("Failed to fetch images");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  // Prepare items for Carousel component
+  const carouselItems = carousel.map((carousel) => (
     <img
-      src="../../img/service/marine/operator/1_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/2_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/3_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/4_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/5_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/6_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/7_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/8_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/9_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/10_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/11_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/12_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/13_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/14_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/15_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/16_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-    <img
-      src="../../img/service/marine/operator/17_sp.jpg"
-      className="object-cover w-screen sm:w-80 h-64 sm:h-52"
-    />,
-  ];
+      key={carousel.id}
+      src={carousel.imageSrc}
+      alt={carousel.altImage}
+      className="w-full h-full lg:h-[200px] object-cover"
+    />
+  ));
+
   return (
     <>
       <Navbar />
-      <Banner
-        bgImage="../../img/service/marine/marine_jumbotron.jpg"
+      <Jumbotron
+        bgImage={banner.imageSrc}
         headCaption="Marine"
         captionSection="Penghubung bisnis intermoda transportasi dan pengelolaan potensi ekonomi sumber daya laut"
         btnAction="none"
+        showButton={false}
       />
       <Navs links={links} />
-      <div className="relative mb-20">
-        <section className="bg-white overflow-hidden">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:min-h-[400px]">
-            <div className="overflow-y-auto relative flex items-center justify-center w-full lg:order-1 lg:w-7/12">
-              <div className="relative mx-6 my-10 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20">
-                <p className="font-montserrat text-base lg:text-lg text-ne02 pb-6">
-                  Untuk mengelola manajemen pengoperasian dan pemasaran kapal,
-                  termasuk perawatan dan perlindungan kapal berdasarkan
-                  perjanjian kerjasama dengan pihak pemilik kapal maupun
-                  pencharter.
-                </p>
-                <p className="font-montserrat text-base sm:text-lg text-ne02 pb-6">
-                  Persaingan industri pelayaran mendorong semua perusahaan untuk
-                  memilih strategi terbaiknya. Monopoli tidak lagi menjadi
-                  metode untuk mendominasi namun bermitra adalah pilihan yang
-                  sangat realistis untuk bertahan dalam persaingan global maupun
-                  regional.
-                </p>
-                <p className="font-montserrat text-base sm:text-lg text-ne02 pb-6">
-                  Sejak berdiri OBM telah menjalin kemitraan dengan beberapa
-                  perusahaan Pelayaran dalam bidang Kerjasama ship management
-                  yang tidak hanya fokus pada divisi pemasaran namun sampai pada
-                  pengadaan crew dan pemeliharaan serta Docking kapal.
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full overflow-hidden lg:order-2 h-96 lg:h-auto lg:w-5/12">
-              <div className="absolute inset-0">
-                <img
-                  className="object-cover w-full h-full scale-100"
-                  src="../../img/service/marine/operator/caption.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <ImageSlide items={shipOperator} />
+      <ServiceComponent
+        title={operatorData.title}
+        paragraphs={operatorData.paragraphs}
+        imageSrc={firstImage.imageSrc}
+        altImage={firstImage.altImage}
+      />
+      <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
           imageContent="../../img/service/offering.jpg"
@@ -152,3 +135,4 @@ export default () => {
     </>
   );
 };
+export default ShipOperator;

@@ -138,3 +138,5 @@ const LaunchService = () => {
     </>
   );
 };
+
+export default LaunchService;
