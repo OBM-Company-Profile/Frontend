@@ -6,6 +6,7 @@ import "../App.css";
 import Jumbotron from "../component/Jumbotron";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ValueCard from "../component/valueCard";
 interface ImageData {
   id: number;
   imageSrc: string;
@@ -13,9 +14,18 @@ interface ImageData {
   category: string;
 }
 
+interface CardData {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+}
+
 const Tentang = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
+  const [cards, setCards] = useState<CardData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -49,9 +59,43 @@ const Tentang = () => {
     fetchImages();
   }, []);
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const quotation = images[1] || { imageSrc: "", altImage: "" };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3307/api/company_value"
+        );
+        setCards(response.data);
+      } catch (err) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCards();
+  }, []);
 
   const tabs = [
     {
@@ -369,126 +413,21 @@ const Tentang = () => {
                 </p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-6 md:gap-10">
-                <div className="size-full bg-white border border-pr00 rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/trust.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Trust
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Kami menciptakan hubungan yang saling menguntungkan antar
-                    pihak melalui layanan yang kami berikan.
-                  </p>
-                </div>
-                <div className="size-full bg-white border border-pr00 rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/commitment.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Commitment
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Kesetaraan dan konsistensi dalam hubungan bisnis akan
-                    bertransformasi menjadi keharmonisan layaknya keluarga.
-                  </p>
-                </div>
-                <div className="size-full bg-white border border-pr00 rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/competition.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Challenger
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Kompetisi merupakan kontrol kualitas kami
-                  </p>
-                </div>
-                <div className="size-full bg-white border border-pr00 rounded-lg rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/team_work.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Team Work
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Semua anggota tim sama pentingnya, tidak ada bagian yang
-                    tidak penting.
-                  </p>
-                </div>
-                <div className="size-full bg-white border border-pr00 rounded-lg rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/sharing.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Sharing
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Kami adalah Orela yang berarti “titipan dari Tuhan”, yaitu
-                    anugerah untuk berbagi.
-                  </p>
-                </div>
-                <div className="size-full bg-white border border-pr00 rounded-lg p-5">
-                  <div className="flex items-center gap-x-4 mb-3">
-                    <div className="inline-flex justify-center items-center size-[62px] rounded-full border-4 border-ne01 bg-pr00">
-                      <img
-                        className="h-10"
-                        src="./img/tentang_assets/icon/technology.png"
-                      />
-                    </div>
-                    <div className="flex-shrink-0">
-                      <h3 className="block font-raleway text-base lg:text-lg font-semibold text-pr08">
-                        Technology
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="font-montserrat text-sm lg:text-base text-ne02">
-                    Mampu beradaptasi dengan era baru dan transformasi
-                    digitalisasi teknologi.
-                  </p>
-                </div>
+                {cards.map((card) => (
+                  <ValueCard
+                    key={card.id}
+                    title={card.title}
+                    description={card.description}
+                    icon={card.icon}
+                  />
+                ))}
               </div>
             </div>
           </div>
         </section>
       </div>
       <Card
-        imageContent="./img/service/quotation.jpg"
+        imageContent={quotation.imageSrc}
         contentTitle="Quotation"
         captionText="Beritahu kebutuhan Anda melalui email"
         btnAction="Email"

@@ -5,6 +5,7 @@ import Button from "../component/Button";
 import Content from "../component/Content";
 import Card from "../component/Card";
 import { useEffect, useState } from "react";
+import serviceData from "../json/service.json";
 import axios from "axios";
 interface ImageData {
   id: number;
@@ -18,6 +19,9 @@ const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [services, setServices] = useState<any[]>([]);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
+
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
@@ -50,77 +54,58 @@ const Home = () => {
     fetchImages();
   }, []);
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        // Fetching images with category 'home'
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "home" },
+        });
+        setImages(response.data);
+
+        // Merge the JSON data with the image data based on id
+        const combinedData = serviceData.service.map((service, index) => {
+          // Find the image that matches the current service index or other logic
+          const matchingImage = response.data.find(
+            (image: ImageData) => image.id === index + 6 // Adjust matching condition based on your data
+          );
+
+          return {
+            ...service,
+            backgroundImage: matchingImage ? matchingImage.imageSrc : "", // Add imageSrc if found
+          };
+        });
+
+        setServices(combinedData);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offer = quotation[1] || { imageSrc: "", altImage: "" };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  const cardsData = [
-    {
-      title: "Shipping",
-      description: "Kami menyediakan kapal untuk berbagai kebutuhan, seperti :",
-      backgroundImage: "/img/home_assets/shipping.jpeg",
-      desc1: "1. Kapal Cargo",
-      desc2: "2. Kapal Tanker",
-      desc3: "3. Kapal Tugboat",
-      desc4: "4. Kapal Crew Boat",
-      link: "/layanan/shipping",
-    },
-    {
-      title: "Agency",
-      description:
-        "OBM berpengalaman menangani Jasa Keagenan hampir semua jenis kapal, namun tidak terbatas pada kegiatan bongkar muat Ship to Ship di sebagian besar wilayah perairan dan pelabuhan Indonesia.",
-      backgroundImage: "/img/home_assets/agency.jpg",
-      desc1: "",
-      desc2: "",
-      desc3: "",
-      desc4: "",
-      link: "/layanan/shipping",
-    },
-    {
-      title: "Offshore Service",
-      description:
-        "OBM, tidak hanya fokus pada layanan keagenan kapal liner dan tramper tetapi juga melayani keagenan kapal Offshore yang mampu memberikan layanan satu paket.",
-      backgroundImage: "/img/home_assets/offshore.jpg",
-      desc1: "",
-      desc2: "",
-      desc3: "",
-      desc4: "",
-      link: "/layanan/marine",
-    },
-    {
-      title: "Launch Service",
-      description:
-        "Kapal anda bisa terus berlayar sambil kami mengirimkan perbekalan, suku cadang, dan penggantian crew lewat laut tanpa harus menghabiskan biaya tunggu di pelabuhan.",
-      backgroundImage: "/img/home_assets/launch_service.jpeg",
-      desc1: "",
-      desc2: "",
-      desc3: "",
-      desc4: "",
-      link: "/layanan/shipping/launch-service",
-    },
-    {
-      title: "Mooring & Pilotage",
-      description:
-        "OBM memberikan dukungan yang lengkap terhadap kebutuhan bisnis pelayaran termasuk layanan Kepil dan Mooring Master baik di Pelabuhan, Offshore dan kegiatan Ship to Ship.",
-      backgroundImage: "/img/home_assets/mooring.jpg",
-      desc1: "",
-      desc2: "",
-      desc3: "",
-      desc4: "",
-      link: "/layanan/port-service",
-    },
-    {
-      title: "Husbandry Service",
-      description:
-        "Layanan ini bertujuan untuk meminimalkan biaya operasional kapal, khususnya penanganan awak kapal, pengiriman barang-barang kebutuhan kapal dan crew dengan aman.",
-      backgroundImage: "/img/home_assets/husbandry.jpg",
-      desc1: "",
-      desc2: "",
-      desc3: "",
-      desc4: "",
-      link: "/layanan/shipping/husbandry-service",
-    },
-  ];
   return (
     <>
       <Navbar />
@@ -305,17 +290,17 @@ const Home = () => {
         </div>
         <div className="flex justify-center items-center min-h-screen px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {cardsData.map((card, index) => (
+            {services.map((service, index) => (
               <Content
                 key={index}
-                title={card.title}
-                description={card.description}
-                backgroundImage={card.backgroundImage}
-                desc1={card.desc1}
-                desc2={card.desc2}
-                desc3={card.desc3}
-                desc4={card.desc4}
-                link={card.link}
+                title={service.title}
+                description={service.description}
+                backgroundImage={service.backgroundImage}
+                desc1={service.desc1}
+                desc2={service.desc2}
+                desc3={service.desc3}
+                desc4={service.desc4}
+                link={service.link}
               />
             ))}
           </div>
@@ -479,7 +464,7 @@ const Home = () => {
         </div>
       </section>
       <Card
-        imageContent="./img/service/quotation.jpg"
+        imageContent={offer.imageSrc}
         contentTitle="Quotation"
         captionText="Beritahu kebutuhan Anda melalui email"
         btnAction="Email"

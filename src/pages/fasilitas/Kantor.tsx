@@ -22,6 +22,7 @@ const Kantor = () => {
   ];
 
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
+  const [image, setImages] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,6 +40,23 @@ const Kantor = () => {
     fetchJumbotron();
   }, []);
   const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const quotation = image[0] || { imageSrc: "", altImage: "" };
 
   const column1 = [
     { header: "Name", accessor: "name" },
@@ -72,7 +90,7 @@ const Kantor = () => {
         data={data1}
       />
       <Card
-        imageContent="../img/service/offering.jpg"
+        imageContent={quotation.imageSrc}
         contentTitle="Ajukan Permintaan Penawaran"
         captionText="Kami siap 24 jam untuk membantu Anda"
         captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

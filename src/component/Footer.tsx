@@ -1,4 +1,34 @@
-function Footer() {
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface ImageData {
+  id: number;
+  imageSrc: string;
+  altImage: string;
+  category: string;
+}
+
+const Footer: React.FC = () => {
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "home" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch image");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
   return (
     <footer className="bg-pr00">
       {/*  */}
@@ -6,7 +36,11 @@ function Footer() {
         <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2">
             <a href="/">
-              <img className="size-16" src="/logo_obm.png" alt="" />
+              <img
+                className="size-16"
+                src={firstImage.imageSrc}
+                alt={firstImage.altImage}
+              />
               <span className="mt-6 text-sm lg:text-base uppercase font-raleway font-bold">
                 PT. Orela Bahari Mandiri
               </span>
@@ -117,6 +151,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
