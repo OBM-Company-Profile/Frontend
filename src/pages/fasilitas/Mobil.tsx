@@ -1,17 +1,26 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "../../component/Card";
 import Footer from "../../component/Footer";
 import Navbar from "../../component/Navbar";
 import FasilitasCard from "../../component/fasilitas/FasilitasCard";
 import Navs from "../../component/Navs";
 import Jumbotron from "../../component/Jumbotron";
-import axios from "axios";
-import { useState, useEffect } from "react";
 
 interface ImageData {
   id: number;
   imageSrc: string;
   altImage: string;
-  category: string;
+}
+
+interface MobilData {
+  id: number;
+  type: string;
+  name: string;
+  brand: string;
+  capacity: string;
+  year: string;
+  totalUnit: string;
 }
 
 const Mobil = () => {
@@ -22,7 +31,9 @@ const Mobil = () => {
   ];
 
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [mobilList, setMobilList] = useState<MobilData[]>([]);
+  const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -38,39 +49,48 @@ const Mobil = () => {
 
     fetchJumbotron();
   }, []);
+
   const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
 
-  const column1 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data1 = [
-    { name: "Brand ", col: ":", desc: "Toyota " },
-    { name: "Capacity", col: ":", desc: "16 pax" },
-    { name: "Year ", col: ":", desc: "2019" },
-    { name: "Total unit", col: ":", desc: "10 units" },
-  ];
-  const column2 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data2 = [
-    { name: "Brand ", col: ":", desc: "Isuzu " },
-    { name: "Capacity", col: ":", desc: "4 persons" },
-    { name: "Year ", col: ":", desc: "2015" },
-    { name: "Total unit", col: ":", desc: "4 units" },
-  ];
-  const column3 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data3 = [
-    { name: "Brand", col: ":", desc: "Daihatsu" },
-    { name: "Year", col: ":", desc: "2023" },
-  ];
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "fasilitas_mobil" },
+        });
+        setImages(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  useEffect(() => {
+    const fetchMobilData = async () => {
+      try {
+        const response = await axios.get<MobilData[]>(
+          "http://localhost:3307/api/mobil_list"
+        );
+        setMobilList(response.data);
+      } catch (error) {
+        console.error("Error fetching mobil data:", error);
+      }
+    };
+
+    fetchMobilData();
+  }, []);
+
+  const formatData = (mobil: MobilData) => {
+    const formattedData = [
+      { label: "Brand", value: mobil.brand || "N/A" },
+      { label: "Capacity", value: mobil.capacity || "N/A" },
+      { label: "Year", value: mobil.year || "N/A" },
+      { label: "Total Unit", value: mobil.totalUnit || "N/A" },
+    ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
+    return formattedData;
+  };
 
   return (
     <>
@@ -83,27 +103,19 @@ const Mobil = () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <FasilitasCard
-        imgAsset="../img/fasilitas_assets/mvp.jpg"
-        asstType="MVP Operation Cars"
-        asstName="Luxury Mini Bus"
-        col={column1}
-        data={data1}
-      />
-      <FasilitasCard
-        imgAsset="../img/fasilitas_assets/double_cabin.jpg"
-        asstType="Double Cabin"
-        asstName="Boarding Operation Vehicle"
-        col={column2}
-        data={data2}
-      />
-      <FasilitasCard
-        imgAsset="../img/fasilitas_assets/pickup.jpeg"
-        asstType="Pick Up Car"
-        asstName="Tactical & Technical Supporting"
-        col={column3}
-        data={data3}
-      />
+      {mobilList.map((mobil, index) => {
+        const image = images[index];
+        return (
+          <FasilitasCard
+            key={mobil.id}
+            imgAsset={image.imageSrc}
+            asstType={mobil.type}
+            asstName={mobil.name}
+            col={[]} // No need to pass columns now
+            data={formatData(mobil)} // Pass formatted data
+          />
+        );
+      })}
       <Card
         imageContent="../img/service/offering.jpg"
         contentTitle="Ajukan Permintaan Penawaran"
@@ -116,4 +128,5 @@ const Mobil = () => {
     </>
   );
 };
+
 export default Mobil;

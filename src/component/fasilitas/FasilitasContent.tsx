@@ -7,33 +7,24 @@ interface TableColumn {
 
 interface TableProps {
   columns: TableColumn[];
-  data: any[];
+  data: { label: string; value: string }[];
 }
 
-const FasilitasContent: React.FC<TableProps> = ({ columns, data }) => {
+const FasilitasContent: React.FC<TableProps> = ({ data }) => {
   return (
-    <table className="table-auto font-montserrat text-base sm:text-lg text-ne02">
-      <thead className="">
-        <tr>
-          {columns.map((column, index) => (
-            <th key={index} scope="col" className="text-transparent">
-              {column.header}
-            </th>
+    <div className="">
+      <table className="font-montserrat text-base sm:text-lg text-ne02 w-full border-collapse">
+        <tbody>
+          {data.map((item, rowIndex) => (
+            <tr key={rowIndex} className="border-b border-transparent">
+              <td className="whitespace-nowrap">{item.label}</td>
+              <td className="px-2 whitespace-nowrap">:</td>
+              <td className="px-4">{item.value}</td>
+            </tr>
           ))}
-        </tr>
-      </thead>
-      <tbody className="pb-4">
-        {data.map((item, rowIndex) => (
-          <tr key={rowIndex}>
-            {columns.map((column, colIndex) => (
-              <td key={colIndex} className="">
-                {item[column.accessor]}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

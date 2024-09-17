@@ -31,7 +31,7 @@ const Kantor = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [kantorList, setKantorList] = useState<KantorData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
   const [quotation, setQuotation] = useState<ImageData[]>([]);
 
   useEffect(() => {
@@ -65,8 +65,6 @@ const Kantor = () => {
     fetchImages();
   }, []);
 
-  const image = images[0] || { imageSrc: "", altImage: "" };
-
   useEffect(() => {
     const fetchKantorData = async () => {
       try {
@@ -82,12 +80,12 @@ const Kantor = () => {
     fetchKantorData();
   }, []);
 
-  const columns = [
-    { header: "Caption", accessor: "caption" },
-    { header: "Col", accessor: "col" },
-    { header: "Address", accessor: "address" },
-  ];
-
+  const formatData = (kantor: KantorData) => {
+    const formattedData = [
+      { label: "Alamat", value: kantor.address || "N/A" },
+    ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
+    return formattedData;
+  };
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
@@ -124,8 +122,8 @@ const Kantor = () => {
             imgAsset={image.imageSrc}
             asstType={kantor.type}
             asstName={kantor.name}
-            col={columns}
-            data={[kantor]} // Passing individual kantor data
+            col={[]}
+            data={formatData(kantor)} // Passing individual kantor data
           />
         );
       })}

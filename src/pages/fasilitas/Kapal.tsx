@@ -14,6 +14,24 @@ interface ImageData {
   category: string;
 }
 
+interface KapalData {
+  id: number;
+  type: string;
+  name: string;
+  class_: string;
+  speed: string;
+  capacity: string;
+  loa: string;
+  draft: string;
+  freeDeck: string;
+  accomodation: string;
+  crew: string;
+  lsa: string;
+  navEquip: string;
+  me: string;
+  ae: string;
+}
+
 const Kapal = () => {
   const links = [
     { path: "/fasilitas", label: "Kapal" },
@@ -23,6 +41,8 @@ const Kapal = () => {
 
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
+  const [kapalList, setKapalList] = useState<KapalData[]>([]);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -42,10 +62,42 @@ const Kapal = () => {
   const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
+    const fetchKapalData = async () => {
+      try {
+        const response = await axios.get<KapalData[]>(
+          "http://localhost:3307/api/kapal_list"
+        );
+        setKapalList(response.data);
+      } catch (error) {
+        console.error("Error fetching kapal data:", error);
+      }
+    };
+
+    fetchKapalData();
+  }, []);
+
+  const formatData = (kapal: KapalData) => {
+    const formattedData = [
+      { label: "Class", value: kapal.class_ || "N/A" },
+      { label: "Speed", value: kapal.speed || "N/A" },
+      { label: "Capacity", value: kapal.capacity || "N/A" },
+      { label: "LOA", value: kapal.loa || "N/A" },
+      { label: "Free Deck Space", value: kapal.freeDeck || "N/A" },
+      { label: "Accomodation", value: kapal.accomodation || "N/A" },
+      { label: "Crew", value: kapal.crew || "N/A" },
+      { label: "LSA", value: kapal.lsa || "N/A" },
+      { label: "Navigation Equip", value: kapal.navEquip || "N/A" },
+      { label: "ME", value: kapal.me || "N/A" },
+      { label: "AE", value: kapal.ae || "N/A" },
+    ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
+    return formattedData;
+  };
+
+  useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
+          params: { category: "fasilitas_kapal" },
         });
         setImages(response.data);
       } catch (err) {
@@ -56,97 +108,27 @@ const Kapal = () => {
     fetchImages();
   }, []);
 
-  const quotation = images[0] || { imageSrc: "", altImage: "" };
+  useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
 
-  const column1 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data1 = [
-    { name: "Class ", col: ":", desc: "NA" },
-    { name: "Speed ", col: ":", desc: "20 Knots" },
-    { name: "LOA ", col: ":", desc: "30 m" },
-    { name: "Draft ", col: ":", desc: "1,5 m" },
-    { name: "Free Deck Space", col: ":", desc: "62 m²" },
-    { name: "Accomodation ", col: ":", desc: "40 pax" },
-    { name: "Crew ", col: ":", desc: "8 person" },
-    { name: "ME ", col: ":", desc: "3 x Catepillar" },
-    { name: "AE ", col: ":", desc: "2 x Cummins" },
-  ];
-  const column2 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data2 = [
-    { name: "Class ", col: ":", desc: "NA" },
-    { name: "Speed ", col: ":", desc: "30 Knots" },
-    { name: "Capacity ", col: ":", desc: "5-100 passengers" },
-    { name: "Free Deck Space ", col: ":", desc: "4x3 m² (load maximum 3 mt)" },
-    {
-      name: "Accomodation ",
-      col: ":",
-      desc: "AC, toilet, entertainment device, etc.",
-    },
-    { name: "LSA ", col: ":", desc: "Yes (min standard)" },
-    {
-      name: "Navigation equip ",
-      col: ":",
-      desc: "Yes (radio, GPS, compass, etc.) ",
-    },
-    {
-      name: "ME ",
-      col: ":",
-      desc: "4 x 150 outboard eng (variable depend  on capacity)",
-    },
-    { name: "AE ", col: ":", desc: "2 x Yanmar 10 portable" },
-  ];
-  const column3 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data3 = [
-    { name: "Class ", col: ":", desc: "NA" },
-    { name: "Speed", col: ":", desc: "30 Knots " },
-    { name: "Capacity", col: ":", desc: "5-100 passengers" },
-    { name: "Free Deck Space", col: ":", desc: "4x3 m² (load maximum 3 mt)" },
-    {
-      name: "Accomodation",
-      col: ":",
-      desc: "AC, toilet, entertainment device, etc.",
-    },
-    { name: "LSA", col: ":", desc: "Yes (min standard)" },
-    {
-      name: "Nav equip ",
-      col: ":",
-      desc: "Yes (radio, GPS, compass, etc.)",
-    },
-    {
-      name: "ME",
-      col: ":",
-      desc: "4 x 150 outboard eng (variable depend on capacity)",
-    },
-    { name: "AE", col: ":", desc: "2 x Yanmar 10 portable" },
-  ];
-  const column4 = [
-    { header: "Name", accessor: "name" },
-    { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
-  ];
-  const data4 = [
-    { name: "Class ", col: ":", desc: "NA" },
-    { name: "Speed ", col: ":", desc: "20 Knots" },
-    { name: "LOA ", col: ":", desc: "5 m" },
-    { name: "Draft ", col: ":", desc: "NA" },
-    { name: "Free Deck Space ", col: ":", desc: "NA" },
-    { name: "Accomodation ", col: ":", desc: "4 persons" },
-    { name: "Crew", col: ":", desc: "1 person" },
-    { name: "ME ", col: ":", desc: "1 x 40 outboard eng" },
-    { name: "AE ", col: ":", desc: "NA" },
-    { name: "Propeller ", col: ":", desc: "NA" },
-  ];
+    fetchQuotation();
+  }, []);
+
+  const offer = quotation[1] || { imageSrc: "", altImage: "" };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <>
       <Navbar />
@@ -158,36 +140,21 @@ const Kapal = () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <FasilitasCard
-        imgAsset="./img/fasilitas_assets/offshore_crew.jpg"
-        asstType="Aluminium Crew Boat"
-        asstName="Offshore Crew Boat"
-        col={column1}
-        data={data1}
-      />
-      <FasilitasCard
-        imgAsset="./img/fasilitas_assets/luxury_boat.jpg"
-        asstType="Fiber Boat"
-        asstName="Luxury Passengers Boat"
-        col={column2}
-        data={data2}
-      />
-      <FasilitasCard
-        imgAsset="./img/fasilitas_assets/pilot.jpeg"
-        asstType="Aluminium Patrol/Pilot Boat"
-        asstName="High Speed Crew Boat"
-        col={column3}
-        data={data3}
-      />
-      <FasilitasCard
-        imgAsset="./img/fasilitas_assets/fiber_speedboat.png"
-        asstType="Fiber Speed Boat"
-        asstName="Fast Boarding Boat"
-        col={column4}
-        data={data4}
-      />
+      {kapalList.map((kapal, index) => {
+        const image = images[index];
+        return (
+          <FasilitasCard
+            key={kapal.id}
+            imgAsset={image.imageSrc}
+            asstType={kapal.type}
+            asstName={kapal.name}
+            col={[]} // No need to pass columns now
+            data={formatData(kapal)} // Pass formatted data
+          />
+        );
+      })}
       <Card
-        imageContent={quotation.imageSrc}
+        imageContent={offer.imageSrc}
         contentTitle="Ajukan Permintaan Penawaran"
         captionText="Kami siap 24 jam untuk membantu Anda"
         captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

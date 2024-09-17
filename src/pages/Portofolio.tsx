@@ -25,7 +25,7 @@ const Portofolio = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState<ImageData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
