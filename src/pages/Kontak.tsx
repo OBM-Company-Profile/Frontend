@@ -6,6 +6,7 @@ import CardContact from "../component/CardContact";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Jumbotron from "../component/Jumbotron";
+import MilestoneComponent from "./Milestones";
 interface ImageData {
   id: number;
   imageSrc: string;

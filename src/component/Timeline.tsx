@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-interface Tab {
+interface Timeline {
   year: number;
   content: React.ReactNode;
 }
 
-interface TabsProps {
-  tabs: Tab[];
+interface TimelinesProps {
+  tabs: Timeline[];
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs }) => {
+const Timelines: React.FC<TimelinesProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -33,4 +33,4 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
   );
 };
 
-export default Tabs;
+export default Timelines;

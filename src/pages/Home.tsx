@@ -72,7 +72,7 @@ const Home = () => {
 
           return {
             ...service,
-            backgroundImage: matchingImage ? matchingImage.imageSrc : "", // Add imageSrc if found
+            backgroundImage: matchingImage ? matchingImage.imageSrc : "",
           };
         });
 
@@ -312,7 +312,7 @@ const Home = () => {
             <h2 className="inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl pb-10">
               Mitra & Klien Kami
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-x-8 gap-y-4">
               {/* Client logos here */}
               <div className="flex items-center justify-center">
                 <img
@@ -323,8 +323,8 @@ const Home = () => {
               </div>
               <div className="flex items-center justify-center">
                 <img
-                  src="./img/klien_logo/timah.png"
-                  alt="timah"
+                  src="./img/klien_logo/mol.png"
+                  alt="mol"
                   className="h-12"
                 />
               </div>
@@ -357,10 +357,17 @@ const Home = () => {
                   className="h-16"
                 />
               </div>
+              <div className="flex items-center justify-center">
+                <img
+                  src="./img/klien_logo/pelindo_maritim.png"
+                  alt="pelindo maritim"
+                  className="h-16"
+                />
+              </div>
             </div>
             {isVisible && (
               <div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-x-8 gap-y-4">
                   {/* Client logos here */}
                   <div className="flex items-center justify-center">
                     <img
@@ -385,6 +392,13 @@ const Home = () => {
                   </div>
                   <div className="flex items-center justify-center">
                     <img
+                      src="./img/klien_logo/spil.png"
+                      alt="spil"
+                      className="h-12"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
                       src="./img/klien_logo/lintas_samudra.png"
                       alt="lintas"
                       className="h-12"
@@ -405,9 +419,15 @@ const Home = () => {
                       className="h-12"
                     />
                   </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/waruna.png"
+                      alt="waruna"
+                      className="h-12"
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 mb-4 sm:mb-0">
-                  {/* Client logos here */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-x-8 gap-y-4 mb-4 sm:mb-0">
                   <div className="flex items-center justify-center">
                     <img
                       src="./img/klien_logo/Marunda.png"
@@ -449,6 +469,13 @@ const Home = () => {
                       src="./img/klien_logo/pertama_jaya.png"
                       alt="pertamajaya"
                       className="h-12"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="./img/klien_logo/saha.png"
+                      alt="pelindo maritim"
+                      className="h-16"
                     />
                   </div>
                 </div>

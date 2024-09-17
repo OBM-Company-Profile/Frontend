@@ -14,6 +14,13 @@ interface ImageData {
   category: string;
 }
 
+interface KantorData {
+  id: number;
+  type: string;
+  name: string;
+  address: string;
+}
+
 const Kantor = () => {
   const links = [
     { path: "/fasilitas", label: "Kapal" },
@@ -22,8 +29,10 @@ const Kantor = () => {
   ];
 
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [image, setImages] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<ImageData[]>([]);
+  const [kantorList, setKantorList] = useState<KantorData[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -45,7 +54,7 @@ const Kantor = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
+          params: { category: "fasilitas_kantor" },
         });
         setImages(response.data);
       } catch (err) {
@@ -56,20 +65,45 @@ const Kantor = () => {
     fetchImages();
   }, []);
 
-  const quotation = image[0] || { imageSrc: "", altImage: "" };
+  const image = images[0] || { imageSrc: "", altImage: "" };
 
-  const column1 = [
-    { header: "Name", accessor: "name" },
+  useEffect(() => {
+    const fetchKantorData = async () => {
+      try {
+        const response = await axios.get<KantorData[]>(
+          "http://localhost:3307/api/kantor_list"
+        );
+        setKantorList(response.data);
+      } catch (error) {
+        console.error("Error fetching kantor data", error);
+      }
+    };
+
+    fetchKantorData();
+  }, []);
+
+  const columns = [
+    { header: "Caption", accessor: "caption" },
     { header: "Col", accessor: "col" },
-    { header: "Desc", accessor: "desc" },
+    { header: "Address", accessor: "address" },
   ];
-  const data1 = [
-    {
-      name: "Alamat ",
-      col: ":",
-      desc: " Jl. Tenggiri No. 103 D, Tanjung Priok Jakarta Utara, 14320 Indonesia",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
   return (
     <>
@@ -82,15 +116,21 @@ const Kantor = () => {
         btnAction="none"
       />
       <Navs links={links} />
-      <FasilitasCard
-        imgAsset="../img/fasilitas_assets/kantor.jpeg"
-        asstType="Owned"
-        asstName="OBM Main Office"
-        col={column1}
-        data={data1}
-      />
+      {kantorList.map((kantor, index) => {
+        const image = images[index];
+        return (
+          <FasilitasCard
+            key={kantor.id}
+            imgAsset={image.imageSrc}
+            asstType={kantor.type}
+            asstName={kantor.name}
+            col={columns}
+            data={[kantor]} // Passing individual kantor data
+          />
+        );
+      })}
       <Card
-        imageContent={quotation.imageSrc}
+        imageContent={offering.imageSrc}
         contentTitle="Ajukan Permintaan Penawaran"
         captionText="Kami siap 24 jam untuk membantu Anda"
         captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

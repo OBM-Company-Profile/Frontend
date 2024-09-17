@@ -1,7 +1,7 @@
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
 import Card from "../component/Card";
-import Timeline from "../component/Timeline";
+import Timelines from "../component/Timeline";
 import "../App.css";
 import Jumbotron from "../component/Jumbotron";
 import { useEffect, useState } from "react";
@@ -12,6 +12,12 @@ interface ImageData {
   imageSrc: string;
   altImage: string;
   category: string;
+}
+
+interface Milestone {
+  id: number;
+  year: number;
+  content: string;
 }
 
 interface CardData {
@@ -25,8 +31,10 @@ const Tentang = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [milestones, setMilestones] = useState<Milestone[]>([]);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -60,25 +68,21 @@ const Tentang = () => {
   }, []);
 
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchQuotation = async () => {
       try {
         const response = await axios.get("http://localhost:3307/api/images", {
           params: { category: "service" },
         });
-        setImages(response.data);
+        setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");
       }
     };
 
-    fetchImages();
+    fetchQuotation();
   }, []);
 
-  const quotation = images[1] || { imageSrc: "", altImage: "" };
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const offer = quotation[1] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -258,7 +262,6 @@ const Tentang = () => {
       ),
     },
   ];
-
   return (
     <>
       <Navbar />
@@ -328,7 +331,7 @@ const Tentang = () => {
             Milestone
           </h1>
           <div className="items-center justify-center">
-            <Timeline tabs={tabs} />
+            <Timelines tabs={tabs} />
           </div>
         </div>
       </section>
@@ -427,7 +430,7 @@ const Tentang = () => {
         </section>
       </div>
       <Card
-        imageContent={quotation.imageSrc}
+        imageContent={offer.imageSrc}
         contentTitle="Quotation"
         captionText="Beritahu kebutuhan Anda melalui email"
         btnAction="Email"
