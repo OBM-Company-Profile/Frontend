@@ -27,7 +27,6 @@ const Navs: React.FC<NavsProps> = ({ links }) => {
           </div>
         ))}
       </div>
-      <div></div>
     </section>
   );
 };

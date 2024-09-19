@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 interface Timeline {
   year: number;
-  content: React.ReactNode;
+  content: string;
 }
 
-interface TimelinesProps {
-  tabs: Timeline[];
-}
-
-const Timelines: React.FC<TimelinesProps> = ({ tabs }) => {
+const Timelines: React.FC = () => {
+  const [tabs, setTabs] = useState<Timeline[]>([]);
   const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    const fetchTimelines = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/milestone");
+        setTabs(response.data);
+      } catch (error) {
+        console.error("Error fetching timeline data:", error);
+      }
+    };
+
+    fetchTimelines();
+  }, []);
+
+  const splitContent = (content: string) => {
+    return content
+      .split("]")
+      .map((entry) => entry.trim())
+      .filter((entry) => entry.length > 0);
+  };
 
   return (
     <div className="w-full">
@@ -28,7 +46,18 @@ const Timelines: React.FC<TimelinesProps> = ({ tabs }) => {
           </button>
         ))}
       </div>
-      <div className="mt-4">{tabs[activeTab].content}</div>
+
+      <div className="mt-4 p-4 transition-all duration-300">
+        <ul className="list-disc pl-6">
+          {splitContent(tabs[activeTab]?.content || "").map((item, idx) => (
+            <li
+              key={idx}
+              className="text-base lg:text-lg font-montserrat leading-relaxed">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

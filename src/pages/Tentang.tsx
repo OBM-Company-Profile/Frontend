@@ -14,12 +14,6 @@ interface ImageData {
   category: string;
 }
 
-interface Milestone {
-  id: number;
-  year: number;
-  content: string;
-}
-
 interface CardData {
   id: number;
   title: string;
@@ -32,9 +26,8 @@ const Tentang = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
   const [quotation, setQuotation] = useState<ImageData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [milestones, setMilestones] = useState<Milestone[]>([]);
+  const [, setLoading] = useState<boolean>(true);
+  const [, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -101,167 +94,6 @@ const Tentang = () => {
     fetchCards();
   }, []);
 
-  const tabs = [
-    {
-      year: 2017,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>PT. OBM didirikan sebagai perusahaan keagenan kapal</li>
-            <li>Agen pendukung armada PT. PGN LNG FSRU Lampung (Novasi)</li>
-            <li>
-              Agen pendukung armada PT. Timah Tbk Kepulauan Bangka (Novasi)
-            </li>
-            <li>
-              Terdaftar sebagai agen di PT. Pelabuhan Indonesia 2 (Persero)
-              Tanjung Priok
-            </li>
-            <li>
-              Terdaftar sebagai mitra tetap PT. Bank Mandiri Persero pengguna
-              layanan CMS (<i>cash management system</i>)
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2018,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>
-              Mendirikan cabang di Marunda, Kepulauan Seribu, dan Maringgai
-            </li>
-            <li>Agen armada pendukung PT. Timah. Tbk, Tanjung Balai, Riau</li>
-            <li>
-              Agen armada pendukung PT. FSRU PGN LNG Lampung selama periode
-              2018-2019
-            </li>
-            <li>Terdaftar sebagai agen PT. MCT Marunda</li>
-            <li>Terdaftar sebagai agen PT. Terminal Vopak Jakarta</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2019,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>Mendirikan cabang di Samarinda dan Balikpapan</li>
-            <li>
-              Agen kapal milik PT. Lintas Borneo di wilayah Kalimantan Timur
-            </li>
-            <li>
-              Perpanjangan kontrak agen armada pendukung PT. Timah Tbk & PT.
-              FSRU PGN LNG Lampung periode 2019-2020
-            </li>
-            <li>Bermitra dengan Bank BNI</li>
-            <li>
-              Menjadi agen dengan layanan kapal ekspor terbanyak di Pelabuhan
-              MCT Marunda
-            </li>
-            <li>Terdaftar sebagai agen terminal PT. Interport</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2020,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>
-              Launching sistem digitalisi operasional, keuangan internal, &
-              eksternal selama pandemi Covid 19
-            </li>
-            <li>
-              Perpanjangan kontrak agen armada pendukung PT. Timah Tbk & PT. PGN
-              LNG FSRU Lampung pada periode 2020-2021
-            </li>
-            <li>
-              Sebagai pengguna pertama Cash Management Sistem Pelindo IV
-              Balikpapan dengan Bank BNI
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2021,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>Mendirikan cabang di Tana Grogot</li>
-            <li>
-              Perpanjang kontrak armada pendukung PT. Timah Tbk & PT. PGN LNG
-              FSRU Lampung periode 2021-2022
-            </li>
-            <li>
-              OBM mendapat tambahan modal untuk pengembangan usaha oleh Bank BNI
-              melalui Program Pembiayaan Pelabuhan
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2022,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>Mendirikan cabang di Cirebon dan Patimban</li>
-            <li>
-              Memenangkan tender vendor Mooring/Unmooring Pelabuhan Tanjung
-              Priok periode 2022-2023{" "}
-            </li>
-            <li>
-              Ditunjuk sebagai agen, stevedore dan Trucking untuk penyedia
-              perakitan Hitachi Machinery Construction
-            </li>
-            <li>
-              Mendukung penanganan kargo dan pengiriman tenaga listrik untuk
-              PetroVietnam Power Ha Tinh di bawah PT. Sulzer
-            </li>
-            <li>
-              Sebagai agen pertama Operasi STS kapal Kargo Curah Cair di Muara
-              Berau
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2023,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>
-              Memenangkan tender Mooring/Unmooring di pelabuhan Tanjung Priok
-              periode 2023-2024
-            </li>
-            <li>
-              Perpanjangan kontrak agen armada pendukung PT. PGN LNG FSRU
-              Lampung selama periode 2023-2024
-            </li>
-            <li>Penambahan armada kapal crew boat 60 pack</li>
-            <li>Terdaftar sebagai agen PT. MCT Marunda</li>
-            <li>Terdaftar sebagai anggota INSA</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      year: 2024,
-      content: (
-        <div className="font-montserrat text-base lg:text-lg">
-          <ul className="pl-4 list-disc">
-            <li>Ditunjuk sebagai agen PT. SPIL di Merak</li>
-          </ul>
-        </div>
-      ),
-    },
-  ];
   return (
     <>
       <Navbar />
@@ -282,11 +114,11 @@ const Tentang = () => {
                 <h1 className="pb-8 text-3xl font-raleway text-medium text-ne01 sm:text-4xl">
                   Profil Perusahaan
                 </h1>
-                <p className="font-montserrat text-lg text-ne01 pb-6">
+                <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
                   PT. Orela Bahari Mandiri (OBM) merupakan perusahaan Pelayaran
                   dan Jasa Keagenan Kapal yang didirikan tahun 2017.
                 </p>
-                <p className="font-montserrat text-lg text-ne01 pb-6">
+                <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
                   Latar belakang yang sama di antara para pendiri telah
                   mendorong Dharma Kala’ Tiku sebagai inisiator bersama para
                   koleganya untuk mendirikan OBM, dimulai dari jasa keagenan
@@ -294,7 +126,7 @@ const Tentang = () => {
                   yang profesional serta diperhitungkan dalam industri maritim
                   Indonesia dengan pengembangan di bidang terkait.
                 </p>
-                <p className="font-montserrat text-lg text-ne01 pb-6">
+                <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
                   Sejak didirikan di 2017, PT. OBM melewati masa-masa sulit,
                   namun mampu bertahan, bahkan melalui pandemi COVID-19 di tahun
                   2019 dan terus berkembang sampai saat ini. Krisis selalu
@@ -302,7 +134,7 @@ const Tentang = () => {
                   menghadirkan layanan yang beradaptasi dengan kebutuhan
                   pelanggan.
                 </p>
-                <p className="font-montserrat text-lg text-ne01 pb-6">
+                <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
                   OBM berkomitmen untuk memberikan yang terbaik dalam mendukung
                   kesuksesan customer sebagai mitra usaha. Dengan semangat
                   kemitraan dan tujuan yang sederhana yaitu menjadi perusahaan
@@ -331,7 +163,7 @@ const Tentang = () => {
             Milestone
           </h1>
           <div className="items-center justify-center">
-            <Timelines tabs={tabs} />
+            <Timelines />
           </div>
         </div>
       </section>
@@ -393,7 +225,7 @@ const Tentang = () => {
                 Value
               </h1>
               <div className="mb-10">
-                <p className="hidden lg:inline-block font-montserrat text-lg text-ne02 pb-6">
+                <p className="hidden lg:inline-block font-montserrat text-base lg:text-lg text-ne02 pb-6">
                   OBM tidak mengambil keuntungan semata dari customer, namun
                   mengundang mereka sebagai mitra atau partner untuk
                   keberhasilan bersama. Kinerja professional sebagai niat yang
@@ -402,12 +234,12 @@ const Tentang = () => {
                   tertinggi, yaitu budaya berbagi dimulai dari kesejahteraan
                   karyawan dan pertumbuhan mitra usaha.
                 </p>
-                <p className="lg:hidden lg:inline-block font-montserrat text-lg text-ne02 pb-6">
+                <p className="lg:hidden lg:inline-block font-montserrat text-base text-ne02 pb-6">
                   OBM tidak mengambil keuntungan semata dari customer, namun
                   mengundang mereka sebagai mitra atau partner untuk
                   keberhasilan bersama.
                 </p>
-                <p className="lg:hidden lg:inline-block font-montserrat text-lg text-ne02 pb-6">
+                <p className="lg:hidden lg:inline-block font-montserrat text-base text-ne02 pb-6">
                   Kinerja professional sebagai niat yang baik akan menguntungkan
                   semua pihak dan membawa perusahaan berjalan pada jalur yang
                   sesuai untuk pencapaian nilai sosial tertinggi, yaitu budaya
