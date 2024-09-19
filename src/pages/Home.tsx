@@ -7,6 +7,7 @@ import Card from "../component/Card";
 import { useEffect, useState } from "react";
 import serviceData from "../json/service.json";
 import axios from "axios";
+import LogoClient from "../component/LogoClient";
 interface ImageData {
   id: number;
   imageSrc: string;
@@ -16,7 +17,6 @@ interface ImageData {
 
 const Home = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [services, setServices] = useState<any[]>([]);
@@ -306,190 +306,20 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <section>
-        <div className="flex flex-col justify-center items-center mb-20">
-          <div className="relative mx-6 mt-10 mb-6 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20 lg:mb-4">
-            <h2 className="inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl pb-10">
-              Mitra & Klien Kami
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-x-8 gap-y-4">
-              {/* Client logos here */}
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/pertamina.png"
-                  alt="pertamina"
-                  className="h-12"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/mol.png"
-                  alt="mol"
-                  className="h-12"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/shell.png"
-                  alt="shell"
-                  className="h-20"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/krakatau.png"
-                  alt="krakatau"
-                  className="h-12"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/sinarmas.png"
-                  alt="sinarmas"
-                  className="h-auto"
-                />
-              </div>
-
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/interport.png"
-                  alt="interport"
-                  className="h-16"
-                />
-              </div>
-              <div className="flex items-center justify-center">
-                <img
-                  src="./img/klien_logo/pelindo_maritim.png"
-                  alt="pelindo maritim"
-                  className="h-16"
-                />
+      <div>
+        <section className="mb-10">
+          <div className="flex flex-col">
+            <div className="relative mx-6 mt-10 mb-6 px-4 lg:px-0 lg:ml-32 lg:mr-20 lg:mt-20 lg:mb-4">
+              <h2 className="inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl pb-10">
+                Mitra & Klien Kami
+              </h2>
+              <div className="px-4 lg:px-0">
+                <LogoClient />
               </div>
             </div>
-            {isVisible && (
-              <div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-x-8 gap-y-4">
-                  {/* Client logos here */}
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/hitachi.png"
-                      alt="hitachi"
-                      className="h-16"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/soechi.png"
-                      alt="soechi"
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/gac.png"
-                      alt="gac"
-                      className="sm:mt-4 h-16"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/spil.png"
-                      alt="spil"
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/lintas_samudra.png"
-                      alt="lintas"
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/pelindo.png"
-                      alt="pelindo"
-                      className="h-auto"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/oceanindo.png"
-                      alt="oceanindo"
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/waruna.png"
-                      alt="waruna"
-                      className="h-12"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-x-8 gap-y-4 mb-4 sm:mb-0">
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/Marunda.png"
-                      alt="marunda"
-                      className="h-16"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/bahtera.png"
-                      alt="bahtera"
-                      className="h-20"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/MedcoEnergi.png"
-                      alt="medco"
-                      className="h-16"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/indika.png"
-                      alt="indika"
-                      className="h-32"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/apm.png"
-                      alt="apm"
-                      className="h-auto"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/pertama_jaya.png"
-                      alt="pertamajaya"
-                      className="h-12"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <img
-                      src="./img/klien_logo/saha.png"
-                      alt="pelindo maritim"
-                      className="h-16"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
-
-          <button
-            className="font-semibold font-montserrat uppercase place-items-center px-6 py-3 text-sm my-2 inline-flex place-items-center bg-sc06 text-ne01 hover:bg-pr03"
-            onClick={() => setIsVisible(!isVisible)}>
-            {isVisible ? "Ciutkan" : "Selengkapnya"}
-          </button>
-        </div>
-      </section>
+        </section>
+      </div>
       <Card
         imageContent={offer.imageSrc}
         contentTitle="Quotation"
