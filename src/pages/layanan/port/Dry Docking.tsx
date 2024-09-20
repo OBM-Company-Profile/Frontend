@@ -1,8 +1,6 @@
 import Navbar from "../../../component/Navbar";
-import Banner from "../../../component/Banner";
 import Footer from "../../../component/Footer";
 import Card from "../../../component/Card";
-import ImageSlide from "../../../component/Carousel";
 import Navs from "../../../component/Navs";
 import axios from "axios";
 import dockData from "../../../json/portService/dryDocking.json";
@@ -35,6 +33,7 @@ const DryDocking = () => {
   const [carousel, setCarousel] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -69,6 +68,23 @@ const DryDocking = () => {
 
   // Using the first image from category
   const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchCarousel = async () => {
@@ -121,7 +137,7 @@ const DryDocking = () => {
       <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
-          imageContent="../../img/service/offering.jpg"
+          imageContent={offering.imageSrc}
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

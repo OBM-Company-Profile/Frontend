@@ -39,6 +39,7 @@ const Shipping = () => {
   const [carousel, setCarousel] = useState<ImageData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [quotation, setQuotation] = useState<ImageData[]>([]);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -73,6 +74,23 @@ const Shipping = () => {
 
   // Using the first image from category
   const firstImage = images[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchCarousel = async () => {
@@ -126,7 +144,7 @@ const Shipping = () => {
       <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
-          imageContent="../img/service/offering.jpg"
+          imageContent={offering.imageSrc}
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :

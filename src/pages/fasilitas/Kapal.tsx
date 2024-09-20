@@ -62,6 +62,23 @@ const Kapal = () => {
   const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offer = quotation[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
     const fetchKapalData = async () => {
       try {
         const response = await axios.get<KapalData[]>(
@@ -107,23 +124,6 @@ const Kapal = () => {
 
     fetchImages();
   }, []);
-
-  useEffect(() => {
-    const fetchQuotation = async () => {
-      try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
-        setQuotation(response.data);
-      } catch (err) {
-        setError("Failed to fetch images");
-      }
-    };
-
-    fetchQuotation();
-  }, []);
-
-  const offer = quotation[1] || { imageSrc: "", altImage: "" };
 
   if (error) {
     return <div>Error: {error}</div>;

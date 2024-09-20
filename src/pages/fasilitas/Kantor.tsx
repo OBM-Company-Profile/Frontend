@@ -66,6 +66,23 @@ const Kantor = () => {
   }, []);
 
   useEffect(() => {
+    const fetchQuotation = async () => {
+      try {
+        const response = await axios.get("http://localhost:3307/api/images", {
+          params: { category: "service" },
+        });
+        setQuotation(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchQuotation();
+  }, []);
+
+  const offering = quotation[0] || { imageSrc: "", altImage: "" };
+
+  useEffect(() => {
     const fetchKantorData = async () => {
       try {
         const response = await axios.get<KantorData[]>(
@@ -86,22 +103,6 @@ const Kantor = () => {
     ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
     return formattedData;
   };
-  useEffect(() => {
-    const fetchQuotation = async () => {
-      try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
-        setQuotation(response.data);
-      } catch (err) {
-        setError("Failed to fetch images");
-      }
-    };
-
-    fetchQuotation();
-  }, []);
-
-  const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
   if (error) {
     return <div>Error: {error}</div>;
