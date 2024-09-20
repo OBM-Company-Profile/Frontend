@@ -28,6 +28,9 @@ const Footer: React.FC = () => {
   }, []);
 
   const firstImage = images[0] || { imageSrc: "", altImage: "" };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <footer className="bg-pr00">

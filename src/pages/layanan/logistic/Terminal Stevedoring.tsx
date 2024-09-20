@@ -137,7 +137,7 @@ const TerminalStevedoring = () => {
       <Carousel items={carouselItems} />
       <div className="bg-pr08">
         <Card
-          imageContent="../../img/service/offering.jpg"
+          imageContent={offering.imageSrc}
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
           captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :
