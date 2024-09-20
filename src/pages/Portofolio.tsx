@@ -25,7 +25,7 @@ const Portofolio = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [images, setImages] = useState<ImageData[]>([]);
-  const [, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -76,6 +76,10 @@ const Portofolio = () => {
   }, []);
 
   const visibleProjects = isVisible ? projects : projects.slice(0, 2);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>

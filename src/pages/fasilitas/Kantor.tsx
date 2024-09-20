@@ -31,7 +31,7 @@ const Kantor = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [kantorList, setKantorList] = useState<KantorData[]>([]);
-  const [, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [quotation, setQuotation] = useState<ImageData[]>([]);
 
   useEffect(() => {
@@ -102,6 +102,10 @@ const Kantor = () => {
   }, []);
 
   const offering = quotation[0] || { imageSrc: "", altImage: "" };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>

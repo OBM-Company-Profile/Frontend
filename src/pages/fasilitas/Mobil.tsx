@@ -33,7 +33,7 @@ const Mobil = () => {
   const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
   const [images, setImages] = useState<ImageData[]>([]);
   const [mobilList, setMobilList] = useState<MobilData[]>([]);
-  const [, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -91,6 +91,10 @@ const Mobil = () => {
     ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
     return formattedData;
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>
