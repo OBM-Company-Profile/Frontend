@@ -1,5 +1,6 @@
 import Button from "./Button";
-import compro from "../assets/docs/OBM_Company_Profile.pdf";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface JumbotronProps {
   bgImage: string;
@@ -9,6 +10,11 @@ interface JumbotronProps {
   showButton?: boolean; // Optional prop to control button visibility
 }
 
+interface CompanyProfile {
+  link: string;
+  caption: string;
+}
+
 function Jumbotron({
   bgImage,
   headCaption,
@@ -16,6 +22,26 @@ function Jumbotron({
   btnAction,
   showButton = false,
 }: JumbotronProps) {
+  const [comprof, setComprof] = useState<CompanyProfile[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchComprof = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3307/api/management_policy"
+        );
+        setComprof(response.data);
+      } catch (err) {
+        setError("Failed to fetch images");
+      }
+    };
+
+    fetchComprof();
+  }, []);
+
+  const links = comprof[6] || { link: "", caption: "" };
+  if (error) return <p>{error}</p>;
   return (
     <section
       className="relative bg-cover bg-center bg-no-repeat"
@@ -33,7 +59,7 @@ function Jumbotron({
             {captionSection}
           </p>
           {showButton && (
-            <a href={compro} target="_blank" rel="noopener noreferrer">
+            <a href={links.link} target="_blank" rel="noopener noreferrer">
               <Button variant="outline">{btnAction}</Button>
             </a>
           )}

@@ -26,8 +26,8 @@ const Tentang = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [cards, setCards] = useState<CardData[]>([]);
   const [quotation, setQuotation] = useState<ImageData[]>([]);
-  const [, setLoading] = useState<boolean>(true);
-  const [, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchJumbotron = async () => {
@@ -93,6 +93,9 @@ const Tentang = () => {
 
     fetchCards();
   }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -191,7 +194,7 @@ const Tentang = () => {
                 <h2 className="font-raleway text-3xl font-semibold text-ne01 mb-6">
                   Misi
                 </h2>
-                <p className="font-montserrat text-base lg:text-lg text-ne01">
+                <div className="font-montserrat text-base lg:text-lg text-ne01">
                   <ul className="list-disc">
                     <li>
                       Bekerja dengan semangat excellent di dalam semua proses
@@ -211,7 +214,7 @@ const Tentang = () => {
                       waktu kerja.
                     </li>
                   </ul>
-                </p>
+                </div>
               </div>
             </div>
           </div>

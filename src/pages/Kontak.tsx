@@ -6,7 +6,7 @@ import CardContact from "../component/CardContact";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Jumbotron from "../component/Jumbotron";
-import MilestoneComponent from "./Milestones";
+
 interface ImageData {
   id: number;
   imageSrc: string;
@@ -85,6 +85,10 @@ const Kontak = () => {
     fetchData();
   }, []);
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <>
       <Navbar />
@@ -125,7 +129,8 @@ const Kontak = () => {
               width="600"
               height="450"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"></iframe>
+              referrerPolicy="no-referrer-when-downgrade"
+              sandbox="allow-scripts allow-same-origin"></iframe>
           </div>
           <div>
             <OperationArea items={items} />
