@@ -37,9 +37,12 @@ const Kantor = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (error) {
         setError("Failed to fetch image");
@@ -53,9 +56,12 @@ const Kantor = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "fasilitas_kantor" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "fasilitas_kantor" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -68,9 +74,12 @@ const Kantor = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -86,7 +95,7 @@ const Kantor = () => {
     const fetchKantorData = async () => {
       try {
         const response = await axios.get<KantorData[]>(
-          "http://localhost:3307/api/kantor_list"
+          `${process.env.REACT_APP_API_URL}/kantor_list`
         );
         setKantorList(response.data);
       } catch (error) {

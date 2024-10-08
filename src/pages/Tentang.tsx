@@ -32,9 +32,12 @@ const Tentang = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -48,9 +51,12 @@ const Tentang = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "tentang" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "tentang" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -63,9 +69,12 @@ const Tentang = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -81,7 +90,7 @@ const Tentang = () => {
     const fetchCards = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3307/api/company_value"
+          `${process.env.REACT_APP_API_URL}/company_value`
         );
         setCards(response.data);
       } catch (err) {

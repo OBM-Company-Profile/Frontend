@@ -41,9 +41,12 @@ const ShipOwner = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -57,9 +60,12 @@ const ShipOwner = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "marine_owner" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "marine_owner" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -75,9 +81,12 @@ const ShipOwner = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -92,9 +101,12 @@ const ShipOwner = () => {
   useEffect(() => {
     const fetchCarousel = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "marine_owner" }, // Specify category
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "marine_owner" }, // Specify category
+          }
+        );
         // Exclude the first image
         const carousel = response.data;
         setCarousel(carousel.slice(1)); // Exclude the first image

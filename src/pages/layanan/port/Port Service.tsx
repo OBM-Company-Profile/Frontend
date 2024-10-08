@@ -38,9 +38,12 @@ const PortService = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -54,9 +57,12 @@ const PortService = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "port_mooring" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "port_mooring" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -72,9 +78,12 @@ const PortService = () => {
   useEffect(() => {
     const fetchCarousel = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "port_mooring" }, // Specify category
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "port_mooring" }, // Specify category
+          }
+        );
         // Exclude the first image
         const carousel = response.data;
         setCarousel(carousel.slice(1)); // Exclude the first image
@@ -91,9 +100,12 @@ const PortService = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");

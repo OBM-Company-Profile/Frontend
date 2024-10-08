@@ -40,9 +40,12 @@ const Kontak = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -58,7 +61,7 @@ const Kontak = () => {
     const fetchContacts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3307/api/contact_person"
+          `${process.env.REACT_APP_API_URL}/contact_person`
         );
         const data = await response.json();
         setContacts(data);
@@ -74,7 +77,7 @@ const Kontak = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3307/api/operation_area"
+          `${process.env.REACT_APP_API_URL}/operation_area`
         );
         setItems(response.data);
       } catch (error) {

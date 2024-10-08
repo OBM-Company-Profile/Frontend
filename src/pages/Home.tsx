@@ -25,9 +25,12 @@ const Home = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -42,9 +45,12 @@ const Home = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "home" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "home" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -58,9 +64,12 @@ const Home = () => {
     const fetchImages = async () => {
       try {
         // Fetching images with category 'home'
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "home" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "home" },
+          }
+        );
         setImages(response.data);
 
         // Merge the JSON data with the image data based on id
@@ -88,9 +97,12 @@ const Home = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");

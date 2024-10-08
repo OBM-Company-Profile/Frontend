@@ -39,9 +39,12 @@ const Mobil = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (error) {
         setError("Failed to fetch image");
@@ -56,9 +59,12 @@ const Mobil = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "fasilitas_mobil" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "fasilitas_mobil" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -71,9 +77,12 @@ const Mobil = () => {
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "service" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "service" },
+          }
+        );
         setQuotation(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -89,7 +98,7 @@ const Mobil = () => {
     const fetchMobilData = async () => {
       try {
         const response = await axios.get<MobilData[]>(
-          "http://localhost:3307/api/mobil_list"
+          `${process.env.REACT_APP_API_URL}/mobil_list`
         );
         setMobilList(response.data);
       } catch (error) {

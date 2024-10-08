@@ -30,9 +30,12 @@ const Portofolio = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -46,7 +49,7 @@ const Portofolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://localhost:3307/api/proyek");
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/proyek`);
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -63,9 +66,12 @@ const Portofolio = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "porto_proyek" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "porto_proyek" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");

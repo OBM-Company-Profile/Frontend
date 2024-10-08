@@ -1,6 +1,7 @@
 {
   "name": "obm-web-ui",
   "private": true,
+  "homepage": "/ui-test",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

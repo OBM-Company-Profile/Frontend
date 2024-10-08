@@ -33,9 +33,12 @@ const Quality = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "quality" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "quality" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch images");
@@ -52,9 +55,12 @@ const Quality = () => {
   useEffect(() => {
     const fetchJumbotron = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "jumbotron" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "jumbotron" },
+          }
+        );
         setJumbotron(response.data);
       } catch (err) {
         setError("Failed to fetch image");
@@ -69,7 +75,7 @@ const Quality = () => {
     const fetchAccordionItems = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3307/api/management_policy"
+          `${process.env.REACT_APP_API_URL}/management_policy`
         );
         const fetchedItems = response.data;
 
