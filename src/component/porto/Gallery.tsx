@@ -15,9 +15,12 @@ const Gallery: React.FC = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "porto_galeri" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "porto_galeri" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch gallery images");

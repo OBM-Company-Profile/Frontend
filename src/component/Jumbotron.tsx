@@ -29,7 +29,7 @@ function Jumbotron({
     const fetchComprof = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3307/api/management_policy"
+          `${process.env.REACT_APP_API_URL}/management_policy`
         );
         setComprof(response.data);
       } catch (err) {

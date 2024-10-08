@@ -15,9 +15,12 @@ const Footer: React.FC = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "home" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "home" },
+          }
+        );
         setImages(response.data);
       } catch (err) {
         setError("Failed to fetch image");

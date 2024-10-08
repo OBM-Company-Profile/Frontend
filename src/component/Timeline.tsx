@@ -13,7 +13,9 @@ const Timelines: React.FC = () => {
   useEffect(() => {
     const fetchTimelines = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/milestone");
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/milestone`
+        );
         setTabs(response.data);
       } catch (error) {
         console.error("Error fetching timeline data:", error);

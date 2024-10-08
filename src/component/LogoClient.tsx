@@ -18,9 +18,12 @@ const LogoCarousel: React.FC = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://localhost:3307/api/images", {
-          params: { category: "logo_klien" },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/images`,
+          {
+            params: { category: "logo_klien" },
+          }
+        );
         setLogos(response.data);
       } catch (err) {
         setError("Failed to fetch images");

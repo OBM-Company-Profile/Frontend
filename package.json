@@ -1,7 +1,7 @@
 {
   "name": "obm-web-ui",
   "private": true,
-  "homepage": "/ui-test",
+  "homepage": "https://orelabahari.co.id/company",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -11,12 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^3.4.2",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
-    "cloudinary": "^2.5.0",
     "clsx": "^2.1.0",
-    "preline": "^2.1.0",
+    "preline": "^2.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
