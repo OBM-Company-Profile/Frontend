@@ -8,6 +8,7 @@ import stsData from "../../../json/marine/shiptoShip.json";
 import ServiceComponent from "../../../component/ServiceComponent";
 import { useState, useEffect } from "react";
 import Navs from "../../../component/Navs";
+import LoadingAnimation from "../../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -42,7 +43,7 @@ const ShiptoShip = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -61,7 +62,7 @@ const ShiptoShip = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "marine_sts" },
           }
@@ -82,7 +83,7 @@ const ShiptoShip = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "marine_sts" }, // Specify category
           }
@@ -104,7 +105,7 @@ const ShiptoShip = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -120,7 +121,7 @@ const ShiptoShip = () => {
 
   const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   // Prepare items for Carousel component

@@ -41,7 +41,7 @@ const Kontak = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -61,7 +61,7 @@ const Kontak = () => {
     const fetchContacts = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/contact_person`
+          "https://app.orelabahari.co.id/api/contact_person"
         );
         const data = await response.json();
         setContacts(data);
@@ -77,7 +77,7 @@ const Kontak = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/operation_area`
+          "https://app.orelabahari.co.id/api/operation_area"
         );
         setItems(response.data);
       } catch (error) {

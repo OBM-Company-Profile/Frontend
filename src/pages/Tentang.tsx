@@ -7,6 +7,7 @@ import Jumbotron from "../component/Jumbotron";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ValueCard from "../component/valueCard";
+import LoadingAnimation from "../component/LoadingAnimation";
 interface ImageData {
   id: number;
   imageSrc: string;
@@ -33,7 +34,7 @@ const Tentang = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -52,7 +53,7 @@ const Tentang = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "tentang" },
           }
@@ -70,7 +71,7 @@ const Tentang = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -90,7 +91,7 @@ const Tentang = () => {
     const fetchCards = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/company_value`
+          "https://app.orelabahari.co.id/api/company_value"
         );
         setCards(response.data);
       } catch (err) {
@@ -103,7 +104,7 @@ const Tentang = () => {
     fetchCards();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   return (

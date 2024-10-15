@@ -6,6 +6,7 @@ import Navs from "../../component/Navs";
 import Jumbotron from "../../component/Jumbotron";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import LoadingAnimation from "../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -38,7 +39,7 @@ const Kantor = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -51,13 +52,14 @@ const Kantor = () => {
 
     fetchJumbotron();
   }, []);
+
   const banner = jumbotron[10] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "fasilitas_kantor" },
           }
@@ -75,7 +77,7 @@ const Kantor = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -95,7 +97,7 @@ const Kantor = () => {
     const fetchKantorData = async () => {
       try {
         const response = await axios.get<KantorData[]>(
-          `${process.env.REACT_APP_API_URL}/kantor_list`
+          "https://app.orelabahari.co.id/api/kantor_list"
         );
         setKantorList(response.data);
       } catch (error) {
@@ -109,12 +111,16 @@ const Kantor = () => {
   const formatData = (kantor: KantorData) => {
     const formattedData = [
       { label: "Alamat", value: kantor.address || "N/A" },
-    ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
+    ].filter((item) => item.value !== "N/A");
     return formattedData;
   };
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (!kantorList.length || !images.length) {
+    return <LoadingAnimation />;
   }
 
   return (
@@ -129,7 +135,7 @@ const Kantor = () => {
       />
       <Navs links={links} />
       {kantorList.map((kantor, index) => {
-        const image = images[index];
+        const image = images[index] || { imageSrc: "" }; // Safely access the image
         return (
           <FasilitasCard
             key={kantor.id}
@@ -137,7 +143,7 @@ const Kantor = () => {
             asstType={kantor.type}
             asstName={kantor.name}
             col={[]}
-            data={formatData(kantor)} // Passing individual kantor data
+            data={formatData(kantor)}
           />
         );
       })}
@@ -153,4 +159,5 @@ const Kantor = () => {
     </>
   );
 };
+
 export default Kantor;

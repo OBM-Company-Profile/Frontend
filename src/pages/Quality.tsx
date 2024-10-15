@@ -34,7 +34,7 @@ const Quality = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "quality" },
           }
@@ -56,7 +56,7 @@ const Quality = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -75,7 +75,7 @@ const Quality = () => {
     const fetchAccordionItems = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/management_policy`
+          "https://app.orelabahari.co.id/api/management_policy"
         );
         const fetchedItems = response.data;
 
@@ -157,7 +157,7 @@ const Quality = () => {
                   </figure>
                 </div>
               </div>
-              <figcaption className="text-slate-400 mt-4 font-montserrat text-center">
+              <figcaption className="text-slate-400 text-sm sm:text-base mt-4 font-montserrat text-center">
                 Manajemen HSE & ISO
               </figcaption>
             </div>

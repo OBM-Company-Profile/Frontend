@@ -8,6 +8,7 @@ import Jumbotron from "../../../component/Jumbotron";
 import Carousel from "../../../component/Carousel";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import LoadingAnimation from "../../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -42,7 +43,7 @@ const ShipOperator = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -61,7 +62,7 @@ const ShipOperator = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "marine_operator" },
           }
@@ -82,7 +83,7 @@ const ShipOperator = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -102,7 +103,7 @@ const ShipOperator = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "marine_operator" }, // Specify category
           }
@@ -120,7 +121,7 @@ const ShipOperator = () => {
     fetchCarousel();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   // Prepare items for Carousel component

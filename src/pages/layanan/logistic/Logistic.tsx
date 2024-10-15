@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import ServiceComponent from "../../../component/ServiceComponent";
 import Carousel from "../../../component/Carousel";
 import Jumbotron from "../../../component/Jumbotron";
+import LoadingAnimation from "../../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -38,7 +39,7 @@ const Logistic = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -57,7 +58,7 @@ const Logistic = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "logistics_transport" },
           }
@@ -78,7 +79,7 @@ const Logistic = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "logistics_transport" }, // Specify category
           }
@@ -100,7 +101,7 @@ const Logistic = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -116,7 +117,7 @@ const Logistic = () => {
 
   const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   // Prepare items for Carousel component

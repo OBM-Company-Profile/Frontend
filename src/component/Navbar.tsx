@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "home" },
           }
@@ -41,8 +41,8 @@ const Navbar: React.FC = () => {
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 bg-pr08">
         <div className="flex items-center justify-end gap-x-5 w-full py-2">
           <a
-            className="uppercase inline-flex justify-center items-center gap-2 font-medium text-ne01 hover:text-sc06 text-xs"
-            href="/kontak">
+            href="/kontak"
+            className="uppercase inline-flex justify-center items-center gap-2 font-semibold text-ne01 hover:text-sc06 text-sm">
             <svg
               className="w-6 h-6"
               aria-hidden="true"
@@ -68,6 +68,7 @@ const Navbar: React.FC = () => {
               className="w-16 mx-4 py-3"
               src={firstImage.imageSrc}
               alt={firstImage.altImage}
+              loading="lazy"
             />
           </a>
           <div className="hidden lg:flex space-x-6">

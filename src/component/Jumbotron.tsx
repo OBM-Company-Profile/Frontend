@@ -29,7 +29,7 @@ function Jumbotron({
     const fetchComprof = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/management_policy`
+          "https://app.orelabahari.co.id/api/management_policy"
         );
         setComprof(response.data);
       } catch (err) {
@@ -42,14 +42,17 @@ function Jumbotron({
 
   const links = comprof[6] || { link: "", caption: "" };
   if (error) return <p>{error}</p>;
+
   return (
     <section
       className="relative bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundRepeat: "no-repeat",
+        backgroundSize: "cover", // Ensures the image covers the section
+        minHeight: "50vh", // Sets a minimum height for better layout
       }}>
-      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="absolute inset-0 bg-black opacity-60"></div>
       <div className="relative pl-8 sm:mx-20 max-w-screen-2xl px-4 py-32 sm:px-6 lg:flex lg:basis-full lg:h-screen lg:items-center lg:px-8">
         <div className="max-w-xl text-left">
           <h1 className="text-3xl max-w-xl font-medium font-raleway text-ne01 sm:text-4xl/snug lg:text-5xl/snug">

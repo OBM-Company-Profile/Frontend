@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import ServiceComponent from "../../../component/ServiceComponent";
 import Carousel from "../../../component/Carousel";
 import Jumbotron from "../../../component/Jumbotron";
+import LoadingAnimation from "../../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -39,7 +40,7 @@ const DryDocking = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -58,7 +59,7 @@ const DryDocking = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "port_docking" },
           }
@@ -79,7 +80,7 @@ const DryDocking = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -99,7 +100,7 @@ const DryDocking = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "port_docking" }, // Specify category
           }
@@ -117,7 +118,7 @@ const DryDocking = () => {
     fetchCarousel();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   // Prepare items for Carousel component

@@ -6,6 +6,7 @@ import Navbar from "../../component/Navbar";
 import FasilitasCard from "../../component/fasilitas/FasilitasCard";
 import Navs from "../../component/Navs";
 import Jumbotron from "../../component/Jumbotron";
+import LoadingAnimation from "../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -40,7 +41,7 @@ const Mobil = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -60,7 +61,7 @@ const Mobil = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "fasilitas_mobil" },
           }
@@ -78,7 +79,7 @@ const Mobil = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -98,7 +99,7 @@ const Mobil = () => {
     const fetchMobilData = async () => {
       try {
         const response = await axios.get<MobilData[]>(
-          `${process.env.REACT_APP_API_URL}/mobil_list`
+          "https://app.orelabahari.co.id/api/mobil_list"
         );
         setMobilList(response.data);
       } catch (error) {
@@ -115,12 +116,16 @@ const Mobil = () => {
       { label: "Capacity", value: mobil.capacity || "N/A" },
       { label: "Year", value: mobil.year || "N/A" },
       { label: "Total Unit", value: mobil.totalUnit || "N/A" },
-    ].filter((item) => item.value !== "N/A"); // Filter out items with default 'N/A' value if needed
+    ].filter((item) => item.value !== "N/A");
     return formattedData;
   };
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (!mobilList.length || !images.length) {
+    return <LoadingAnimation />; // Display loading while fetching data
   }
 
   return (
@@ -135,11 +140,12 @@ const Mobil = () => {
       />
       <Navs links={links} />
       {mobilList.map((mobil, index) => {
-        const image = images[index];
+        // Safely access the image from the images array
+        const image = images[index] || { imageSrc: "" };
         return (
           <FasilitasCard
             key={mobil.id}
-            imgAsset={image.imageSrc}
+            imgAsset={image.imageSrc} // Safely access imageSrc
             asstType={mobil.type}
             asstName={mobil.name}
             col={[]} // No need to pass columns now

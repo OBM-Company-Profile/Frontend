@@ -14,7 +14,7 @@ const Timelines: React.FC = () => {
     const fetchTimelines = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/milestone`
+          "https://app.orelabahari.co.id/api/milestone"
         );
         setTabs(response.data);
       } catch (error) {

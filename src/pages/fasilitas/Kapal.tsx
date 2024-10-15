@@ -6,6 +6,7 @@ import FasilitasCard from "../../component/fasilitas/FasilitasCard";
 import Navs from "../../component/Navs";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import LoadingAnimation from "../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -49,7 +50,7 @@ const Kapal = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -68,7 +69,7 @@ const Kapal = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -88,7 +89,7 @@ const Kapal = () => {
     const fetchKapalData = async () => {
       try {
         const response = await axios.get<KapalData[]>(
-          `${process.env.REACT_APP_API_URL}/kapal_list`
+          "https://app.orelabahari.co.id/api/kapal_list"
         );
         setKapalList(response.data);
       } catch (error) {
@@ -120,7 +121,7 @@ const Kapal = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "fasilitas_kapal" },
           }
@@ -138,6 +139,10 @@ const Kapal = () => {
     return <div>Error: {error}</div>;
   }
 
+  if (!kapalList.length || !images.length) {
+    return <LoadingAnimation />; // Loading state while data is fetched
+  }
+
   return (
     <>
       <Navbar />
@@ -150,11 +155,12 @@ const Kapal = () => {
       />
       <Navs links={links} />
       {kapalList.map((kapal, index) => {
-        const image = images[index];
+        // Safely accessing the image from the images array
+        const image = images[index] || { imageSrc: "" };
         return (
           <FasilitasCard
             key={kapal.id}
-            imgAsset={image.imageSrc}
+            imgAsset={image.imageSrc} // Safely access imageSrc
             asstType={kapal.type}
             asstName={kapal.name}
             col={[]} // No need to pass columns now
@@ -174,4 +180,5 @@ const Kapal = () => {
     </>
   );
 };
+
 export default Kapal;

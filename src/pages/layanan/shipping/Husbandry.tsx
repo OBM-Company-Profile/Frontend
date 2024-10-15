@@ -8,6 +8,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ServiceComponent from "../../../component/ServiceComponent";
 import Jumbotron from "../../../component/Jumbotron";
+import LoadingAnimation from "../../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -18,10 +19,7 @@ interface ImageData {
 
 const HusbandryService = () => {
   const links = [
-    {
-      path: "/layanan/shipping",
-      label: "Shipping Agency",
-    },
+    { path: "/layanan/shipping", label: "Shipping Agency" },
     { path: "/layanan/shipping/husbandry-service", label: "Husbandry Service" },
     {
       path: "/layanan/shipping/protecting-agency",
@@ -45,54 +43,57 @@ const HusbandryService = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
         );
         setJumbotron(response.data);
       } catch (err) {
-        setError("Failed to fetch image");
+        console.error(err); // Log error for debugging
+        setError("Failed to fetch jumbotron images");
       }
     };
 
     fetchJumbotron();
   }, []);
+
   const banner = jumbotron[3] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "shipping_husbandry" },
           }
         );
         setImages(response.data);
       } catch (err) {
-        setError("Failed to fetch image");
+        console.error(err); // Log error for debugging
+        setError("Failed to fetch husbandry service images");
       }
     };
 
     fetchImages();
   }, []);
 
-  // Using the first image from category
   const firstImage = images[0] || { imageSrc: "", altImage: "" };
 
   useEffect(() => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
         );
         setQuotation(response.data);
       } catch (err) {
-        setError("Failed to fetch images");
+        console.error(err); // Log error for debugging
+        setError("Failed to fetch service images");
       }
     };
 
@@ -105,16 +106,16 @@ const HusbandryService = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
-            params: { category: "shipping_husbandry" }, // Specify category
+            params: { category: "shipping_husbandry" },
           }
         );
-        // Exclude the first image
-        const carousel = response.data;
-        setCarousel(carousel.slice(1)); // Exclude the first image
+        const carouselImages = response.data.slice(1); // Exclude the first image
+        setCarousel(carouselImages);
       } catch (err) {
-        setError("Failed to fetch images");
+        console.error(err); // Log error for debugging
+        setError("Failed to fetch carousel images");
       } finally {
         setLoading(false);
       }
@@ -123,15 +124,14 @@ const HusbandryService = () => {
     fetchCarousel();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
-  // Prepare items for Carousel component
-  const carouselItems = carousel.map((carousel) => (
+  const carouselItems = carousel.map((item) => (
     <img
-      key={carousel.id}
-      src={carousel.imageSrc}
-      alt={carousel.altImage}
+      key={item.id}
+      src={item.imageSrc}
+      alt={item.altImage}
       className="w-full h-full lg:h-[200px] object-cover"
     />
   ));
@@ -141,7 +141,7 @@ const HusbandryService = () => {
       <Navbar />
       <Jumbotron
         bgImage={banner.imageSrc}
-        headCaption="Shipping"
+        headCaption="Husbandry Service"
         captionSection="Melayani clearence CIQP dan sebagai mata rantai logistik kebutuhan kapal"
         btnAction="none"
         showButton={false}
@@ -159,8 +159,7 @@ const HusbandryService = () => {
           imageContent={offering.imageSrc}
           contentTitle="Ajukan Permintaan Penawaran"
           captionText="Kami siap 24 jam untuk membantu Anda"
-          captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail :
-            enquiries@orelabahari.co.id"
+          captionText1="Telp : +62 2974 3107 HP : +628121919822 Mail : enquiries@orelabahari.co.id"
           btnAction="Offering"
         />
       </div>
@@ -168,4 +167,5 @@ const HusbandryService = () => {
     </>
   );
 };
+
 export default HusbandryService;

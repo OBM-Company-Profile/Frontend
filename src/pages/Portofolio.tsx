@@ -31,7 +31,7 @@ const Portofolio = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -49,7 +49,9 @@ const Portofolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/proyek`);
+        const response = await fetch(
+          "https://app.orelabahari.co.id/api/proyek"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -67,7 +69,7 @@ const Portofolio = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "porto_proyek" },
           }
@@ -102,12 +104,16 @@ const Portofolio = () => {
           Proyek
         </h1>
         {visibleProjects.map((project, index) => {
-          const image = images[index];
+          // Safely access images[index] with fallback values
+          const image = images[index] || {
+            imageSrc: "",
+            altImage: project.title,
+          };
           return (
             <ProjectItem
               key={project.id}
-              imageSrc={image?.imageSrc || ""}
-              altImage={image?.altImage || project.title}
+              imageSrc={image.imageSrc}
+              altImage={image.altImage}
               year={project.year}
               title={project.title}
               description={project.description}

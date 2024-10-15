@@ -7,6 +7,7 @@ import konsultanData from "../../json/konsultan/konsultan.json";
 import axios from "axios";
 import Carousel from "../../component/Carousel";
 import ServiceComponent from "../../component/ServiceComponent";
+import LoadingAnimation from "../../component/LoadingAnimation";
 
 interface ImageData {
   id: number;
@@ -27,7 +28,7 @@ const Konsultan = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -47,7 +48,7 @@ const Konsultan = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "konsultan" },
           }
@@ -68,7 +69,7 @@ const Konsultan = () => {
     const fetchCarousel = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "konsultan" }, // Specify category
           }
@@ -90,7 +91,7 @@ const Konsultan = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -106,7 +107,7 @@ const Konsultan = () => {
 
   const offering = quotation[0] || { imageSrc: "", altImage: "" };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingAnimation />;
   if (error) return <p>{error}</p>;
 
   // Prepare items for Carousel component

@@ -14,10 +14,10 @@ function Card(props: any) {
           <h1 className="font-raleway text-3xl sm:text-4xl text-ne01 py-4 sm:py-8">
             {props.contentTitle}
           </h1>
-          <p className="font-montserrat text-lg text-ne01 pb-4">
+          <p className="font-montserrat text-base sm:text-lg text-ne01 pb-4">
             {props.captionText}
           </p>
-          <p className="font-montserrat text-lg text-ne01 pb-4">
+          <p className="font-montserrat text-base sm:text-lg text-ne01 pb-4">
             {props.captionText1}
           </p>
           <EmailButton emailAddress="enquiries@orelabahari.co.id" />

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import serviceData from "../json/service.json";
 import axios from "axios";
 import LogoClient from "../component/LogoClient";
+import { NavLink } from "react-router-dom";
 interface ImageData {
   id: number;
   imageSrc: string;
@@ -26,7 +27,7 @@ const Home = () => {
     const fetchJumbotron = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "jumbotron" },
           }
@@ -46,7 +47,7 @@ const Home = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "home" },
           }
@@ -65,7 +66,7 @@ const Home = () => {
       try {
         // Fetching images with category 'home'
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "home" },
           }
@@ -98,7 +99,7 @@ const Home = () => {
     const fetchQuotation = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/images`,
+          "https://app.orelabahari.co.id/api/images",
           {
             params: { category: "service" },
           }
@@ -140,13 +141,13 @@ const Home = () => {
             <h1 className="inline-block text-3xl font-raleway font-medium text-ne02 lg:text-4xl">
               Sekilas Tentang OBM
             </h1>
-            <p className="mt-8 font-montserrat text-lg text-ne02">
+            <p className="mt-8 font-montserrat text-base lg:text-lg text-ne02">
               PT. Orela Bahari Mandiri (OBM) sebagai perusahaan pelayaran dan
               penyedia jasa keagenan kapal yang profesional telah melayani
               berbagai permintaan kebutuhan dan jenis kapal dalam industri
               maritim di Indonesia.
             </p>
-            <p className="my-6 font-montserrat text-lg text-ne02">
+            <p className="my-6 font-montserrat text-base lg:text-lg text-ne02">
               Sejak berdiri tahun 2017, OBM terus berkembang hingga kini menjadi
               salah satu perusahaan agensi perkapalan yang diperhitungkan dan
               direkomendasikan di Indonesia. OBM berkomitmen untuk memberikan
@@ -154,9 +155,9 @@ const Home = () => {
               yang terukur secara konsisten untuk kesuksesan bisnis customer
               sebagai mitra usaha.
             </p>
-            <a href="/tentang">
+            <NavLink to="/tentang">
               <Button variant="primary">Selengkapnya</Button>
-            </a>
+            </NavLink>
           </div>
 
           <div className="lg:col-span-3 mt-10 lg:mt-0">
@@ -268,7 +269,7 @@ const Home = () => {
                     menjadikan pelanggan sebagai mitra kerja untuk pencapaian
                     tujuan yang sama yaitu keberhasilan.
                   </p>
-                  <p className="font-montserrat text-lg text-ne01 pb-6">
+                  <p className="font-montserrat text-base lg:text-lg text-ne01 pb-6">
                     Kekuatan hubungan sosial para Pendiri untuk mengelola dan
                     membimbing karyawan menjadi gaya dan identitas baru untuk
                     melayani Pelanggan sebagai Keluarga.
