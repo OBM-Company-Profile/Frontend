@@ -23,12 +23,12 @@ interface CardData {
 }
 
 const Tentang = () => {
-  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [images, setImages] = useState<ImageData[]>([]);
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [quotation, setQuotation] = useState<ImageData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]); //fetching image for jumbotron
+  const [images, setImages] = useState<ImageData[]>([]); //fetching image using category "tentang"
+  const [cards, setCards] = useState<CardData[]>([]); //fetching Values data from database
+  const [quotation, setQuotation] = useState<ImageData[]>([]); //fetching image using category "service"
+  const [loading, setLoading] = useState<boolean>(true); //handling data fetch loading
+  const [error, setError] = useState<string | null>(null); //handling data fetch error
 
   useEffect(() => {
     const fetchJumbotron = async () => {
