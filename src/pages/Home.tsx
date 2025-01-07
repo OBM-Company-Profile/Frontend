@@ -17,11 +17,11 @@ interface ImageData {
 }
 
 const Home = () => {
-  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [images, setImages] = useState<ImageData[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [services, setServices] = useState<any[]>([]);
-  const [quotation, setQuotation] = useState<ImageData[]>([]);
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]); //calling jumbotron image
+  const [images, setImages] = useState<ImageData[]>([]); //calling image using category "home"
+  const [error, setError] = useState<string | null>(null); //handling data fetch error
+  const [services, setServices] = useState<any[]>([]); //calling services from database
+  const [quotation, setQuotation] = useState<ImageData[]>([]); //calling image using category "service"
 
   useEffect(() => {
     const fetchJumbotron = async () => {
