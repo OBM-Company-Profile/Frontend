@@ -21,14 +21,14 @@ type AccordionItem = {
 };
 
 const Quality = () => {
-  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [images, setImages] = useState<ImageData[]>([]);
-  const [items, setItems] = useState<AccordionItem[]>([]);
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]); //fetching image for jumbotron
+  const [images, setImages] = useState<ImageData[]>([]); //fetching image using category "quality"
+  const [items, setItems] = useState<AccordionItem[]>([]); //handling Management Policy's Accordion
   const [singleLink, setSingleLink] = useState<{
     link: string;
     caption: string;
   }>({ link: "", caption: "" });
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); //setting fetching single link for ISO document
 
   useEffect(() => {
     const fetchImages = async () => {
