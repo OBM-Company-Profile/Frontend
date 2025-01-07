@@ -32,10 +32,10 @@ interface Contact {
 }
 
 const Kontak = () => {
-  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [items, setItems] = useState<operationArea[]>([]);
-  const [contacts, setContacts] = useState<Contact[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]); //calling jumbotron image
+  const [items, setItems] = useState<operationArea[]>([]); //calling Operation Area from database
+  const [contacts, setContacts] = useState<Contact[]>([]); //calling Contact Persons from database
+  const [error, setError] = useState<string | null>(null); //handling data fetch error
 
   useEffect(() => {
     const fetchJumbotron = async () => {

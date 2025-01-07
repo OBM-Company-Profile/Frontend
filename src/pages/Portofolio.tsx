@@ -21,11 +21,11 @@ interface Project {
 }
 
 const Portofolio = () => {
-  const [jumbotron, setJumbotron] = useState<ImageData[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [images, setImages] = useState<ImageData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [jumbotron, setJumbotron] = useState<ImageData[]>([]); //fetching image for jumbotron
+  const [projects, setProjects] = useState<Project[]>([]); //fetching projects from database
+  const [isVisible, setIsVisible] = useState(false); //handling Selengkapnya button
+  const [images, setImages] = useState<ImageData[]>([]); //fetching image using category "porto_proyek"
+  const [error, setError] = useState<string | null>(null); //handling data fetch error
 
   useEffect(() => {
     const fetchJumbotron = async () => {
